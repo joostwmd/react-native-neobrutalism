@@ -1,0 +1,159 @@
+import { Meta, ArgTypes, Canvas, Story } from '@storybook/addon-docs/blocks';
+import * as CheckboxStories from './Checkbox.stories';
+
+<Meta of={CheckboxStories} />
+
+# Checkbox
+
+A neobrutalism-styled checkbox component for boolean selection with optional label.
+
+## Import
+
+```tsx
+import { Checkbox } from 'react-native-neobrutalism';
+```
+
+## Basic Usage
+
+```tsx
+<Checkbox label="Accept terms and conditions" />
+```
+
+<Canvas of={CheckboxStories.Default} />
+
+## Checked State
+
+Use `defaultChecked` for uncontrolled or `checked` for controlled state.
+
+<Canvas of={CheckboxStories.Checked} />
+
+```tsx
+<Checkbox label="This is checked" defaultChecked />
+```
+
+## With Label
+
+<Canvas of={CheckboxStories.WithLabel} />
+
+```tsx
+<Checkbox label="Remember me" />
+```
+
+## Label Position
+
+The label can be positioned on either side of the checkbox.
+
+<Canvas of={CheckboxStories.LabelLeft} />
+
+```tsx
+<Checkbox label="Toggle this option" labelPosition="left" />
+```
+
+## Disabled States
+
+<Canvas of={CheckboxStories.Disabled} />
+
+```tsx
+<Checkbox label="Disabled unchecked" disabled />
+<Checkbox label="Disabled checked" disabled defaultChecked />
+```
+
+## Indeterminate State
+
+For "select all" patterns where only some items are selected.
+
+<Canvas of={CheckboxStories.Indeterminate} />
+
+```tsx
+<Checkbox label="Select all" indeterminate />
+```
+
+## Sizes
+
+<Canvas of={CheckboxStories.Sizes} />
+
+```tsx
+<Checkbox label="Small" size="small" />
+<Checkbox label="Default" size="default" />
+<Checkbox label="Large" size="large" />
+```
+
+## Controlled State
+
+<Canvas of={CheckboxStories.ControlledState} />
+
+```tsx
+const [checked, setChecked] = useState(false);
+
+<Checkbox
+  label={`Checkbox is ${checked ? 'checked' : 'unchecked'}`}
+  checked={checked}
+  onCheckedChange={setChecked}
+/>
+```
+
+## Form Example
+
+<Canvas of={CheckboxStories.FormExample} />
+
+## Terms and Conditions
+
+<Canvas of={CheckboxStories.TermsAndConditions} />
+
+```tsx
+<Checkbox
+  label={
+    <Text>
+      I agree to the <Text style={styles.link}>Terms of Service</Text>
+    </Text>
+  }
+  checked={agreed}
+  onCheckedChange={setAgreed}
+/>
+```
+
+## Select All Pattern
+
+<Canvas of={CheckboxStories.SelectAllPattern} />
+
+## Custom Theme
+
+<Canvas of={CheckboxStories.CustomTheme} />
+
+```tsx
+<Checkbox
+  label="Purple themed"
+  themeOverride={{
+    colors: { primary: '#A855F7', primaryForeground: '#FFFFFF' },
+  }}
+/>
+```
+
+## Props
+
+<ArgTypes of={CheckboxStories} />
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `checked` | `boolean` | - | Controlled checked state |
+| `defaultChecked` | `boolean` | `false` | Default checked state (uncontrolled) |
+| `onCheckedChange` | `(checked: boolean) => void` | - | Callback when state changes |
+| `disabled` | `boolean` | `false` | Disable interaction |
+| `indeterminate` | `boolean` | `false` | Show indeterminate state |
+| `label` | `ReactNode` | - | Label text or element |
+| `labelPosition` | `'left' \| 'right'` | `'right'` | Position of label |
+| `size` | `'small' \| 'default' \| 'large'` | `'default'` | Checkbox size |
+| `checkIcon` | `ReactNode` | - | Custom check icon |
+| `indeterminateIcon` | `ReactNode` | - | Custom indeterminate icon |
+| `style` | `ViewStyle` | - | Container styles |
+| `boxStyle` | `ViewStyle` | - | Checkbox box styles |
+| `labelStyle` | `TextStyle` | - | Label text styles |
+| `shadowStyle` | `ViewStyle \| null` | - | Shadow styles (null to hide) |
+| `themeOverride` | `NeobrutalismThemeOverride` | - | Theme overrides |
+
+## Accessibility
+
+- Uses `accessibilityRole="checkbox"`
+- `accessibilityState` includes `checked` (or `'mixed'` for indeterminate) and `disabled`
+- If label is a string, it's used as `accessibilityLabel`
+- Supports custom `accessibilityLabel` prop

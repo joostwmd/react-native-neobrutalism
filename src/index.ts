@@ -147,5 +147,83 @@ export type {
 export { Input, FileInput } from './input';
 export type { InputProps, FileInputProps } from './input';
 
+// Checkbox exports
+export { Checkbox, useCheckboxAnimation } from './checkbox';
+export type {
+  CheckboxProps,
+  CheckboxSize,
+  UseCheckboxAnimationOptions,
+  UseCheckboxAnimationReturn,
+} from './checkbox';
+
+// Collapsible exports
+export {
+  Collapsible,
+  CollapsibleTrigger,
+  CollapsibleContent,
+  CollapsibleContext,
+  useCollapsibleContext,
+  useCollapsibleAnimation,
+} from './collapsible';
+export type {
+  CollapsibleProps,
+  CollapsibleTriggerProps,
+  CollapsibleContentProps,
+  CollapsibleContextValue,
+  UseCollapsibleAnimationOptions,
+  UseCollapsibleAnimationReturn,
+} from './collapsible';
+
+// Combobox exports
+export {
+  Combobox,
+  ComboboxTrigger,
+  ComboboxContent,
+  ComboboxInput,
+  ComboboxList,
+  ComboboxItem,
+  ComboboxEmpty,
+  ComboboxGroup,
+  ComboboxContext,
+  useComboboxContext,
+} from './combobox';
+export type {
+  ComboboxProps,
+  ComboboxTriggerProps,
+  ComboboxContentProps,
+  ComboboxInputProps,
+  ComboboxListProps,
+  ComboboxItemProps,
+  ComboboxEmptyProps,
+  ComboboxGroupProps,
+  ComboboxContextValue,
+  ComboboxOption,
+  ComboboxMode,
+} from './combobox';
+
+// Context Menu exports
+export {
+  ContextMenu,
+  ContextMenuTrigger,
+  ContextMenuContent,
+  ContextMenuItem,
+  ContextMenuCheckboxItem,
+  ContextMenuLabel,
+  ContextMenuSeparator,
+} from './context-menu';
+export type {
+  ContextMenuProps,
+  ContextMenuTriggerProps,
+  ContextMenuContentProps,
+  ContextMenuItemProps,
+  ContextMenuCheckboxItemProps,
+  ContextMenuLabelProps,
+  ContextMenuSeparatorProps,
+} from './context-menu';
+
+// Icon exports
+export { CheckIcon, MinusIcon, ChevronDownIcon, XIcon } from './icons';
+export type { IconProps } from './icons';
+
 // Utility exports
 export { deepMerge } from './utils';

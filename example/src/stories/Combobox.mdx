@@ -1,0 +1,237 @@
+import { Meta, ArgTypes, Canvas, Story } from '@storybook/addon-docs/blocks';
+import * as ComboboxStories from './Combobox.stories';
+
+<Meta of={ComboboxStories} />
+
+# Combobox
+
+An autocomplete dropdown with search functionality and selection support.
+
+## Import
+
+```tsx
+import {
+  Combobox,
+  ComboboxTrigger,
+  ComboboxContent,
+  ComboboxInput,
+  ComboboxList,
+  ComboboxItem,
+  ComboboxEmpty,
+  ComboboxGroup,
+} from 'react-native-neobrutalism';
+```
+
+## Basic Usage
+
+```tsx
+<Combobox placeholder="Select a framework">
+  <ComboboxTrigger />
+  <ComboboxContent>
+    <ComboboxInput />
+    <ComboboxList>
+      <ComboboxItem value="react" label="React" />
+      <ComboboxItem value="vue" label="Vue" />
+      <ComboboxItem value="angular" label="Angular" />
+    </ComboboxList>
+    <ComboboxEmpty>No framework found.</ComboboxEmpty>
+  </ComboboxContent>
+</Combobox>
+```
+
+<Canvas of={ComboboxStories.Default} />
+
+## With Search
+
+Enable filtering with the search input.
+
+<Canvas of={ComboboxStories.WithSearch} />
+
+```tsx
+<Combobox searchable>
+  <ComboboxTrigger />
+  <ComboboxContent>
+    <ComboboxInput placeholder="Type to search..." />
+    <ComboboxList>
+      <ComboboxItem value="react" label="React" />
+    </ComboboxList>
+    <ComboboxEmpty>No matches found.</ComboboxEmpty>
+  </ComboboxContent>
+</Combobox>
+```
+
+## Multi Select
+
+Allow selecting multiple items.
+
+<Canvas of={ComboboxStories.MultiSelect} />
+
+```tsx
+const [selected, setSelected] = useState<string[]>([]);
+
+<Combobox
+  mode="multiple"
+  value={selected}
+  onValueChange={(val) => setSelected(val as string[])}
+>
+  <ComboboxTrigger />
+  <ComboboxContent>
+    <ComboboxList>
+      <ComboboxItem value="react" label="React" />
+      <ComboboxItem value="vue" label="Vue" />
+    </ComboboxList>
+  </ComboboxContent>
+</Combobox>
+```
+
+## With Groups
+
+Organize options into logical groups.
+
+<Canvas of={ComboboxStories.WithGroups} />
+
+```tsx
+<ComboboxList>
+  <ComboboxGroup label="North America">
+    <ComboboxItem value="est" label="Eastern Time" />
+    <ComboboxItem value="pst" label="Pacific Time" />
+  </ComboboxGroup>
+  <ComboboxGroup label="Europe">
+    <ComboboxItem value="gmt" label="GMT" />
+  </ComboboxGroup>
+</ComboboxList>
+```
+
+## Disabled States
+
+<Canvas of={ComboboxStories.Disabled} />
+
+```tsx
+// Disable entire combobox
+<Combobox disabled>...</Combobox>
+
+// Disable individual items
+<ComboboxItem value="vue" label="Vue" disabled />
+```
+
+## Controlled State
+
+<Canvas of={ComboboxStories.ControlledState} />
+
+```tsx
+const [value, setValue] = useState('react');
+const [open, setOpen] = useState(false);
+
+<Combobox
+  value={value}
+  onValueChange={(val) => setValue(val as string)}
+  open={open}
+  onOpenChange={setOpen}
+>
+  ...
+</Combobox>
+```
+
+## Country Selector
+
+<Canvas of={ComboboxStories.CountrySelector} />
+
+## Form Example
+
+<Canvas of={ComboboxStories.FormExample} />
+
+## Custom Theme
+
+<Canvas of={ComboboxStories.CustomTheme} />
+
+## Trigger Without Shadow
+
+The dropdown content has no shadow by default. Use `shadowStyle={null}` on the trigger to remove its shadow.
+
+<Canvas of={ComboboxStories.NoShadow} />
+
+## Props
+
+### Combobox
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `value` | `string \| string[]` | - | Controlled selected value(s) |
+| `defaultValue` | `string \| string[]` | - | Default value (uncontrolled) |
+| `onValueChange` | `(value: string \| string[]) => void` | - | Selection change callback |
+| `mode` | `'single' \| 'multiple'` | `'single'` | Selection mode |
+| `open` | `boolean` | - | Controlled open state |
+| `defaultOpen` | `boolean` | `false` | Default open state |
+| `onOpenChange` | `(open: boolean) => void` | - | Open state callback |
+| `disabled` | `boolean` | `false` | Disable combobox |
+| `placeholder` | `string` | `'Select...'` | Placeholder text |
+| `searchPlaceholder` | `string` | `'Search...'` | Search input placeholder |
+| `searchable` | `boolean` | `true` | Enable search filtering |
+| `filterFn` | `(option, search) => boolean` | - | Custom filter function |
+| `closeOnSelect` | `boolean` | `true` (single) | Close after selection |
+| `themeOverride` | `NeobrutalismThemeOverride` | - | Theme overrides |
+
+### ComboboxTrigger
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `children` | `ReactNode` | - | Custom content |
+| `asChild` | `boolean` | `false` | Clone child element |
+| `showIndicator` | `boolean` | `true` | Show dropdown icon |
+| `indicatorIcon` | `ReactNode` | - | Custom indicator icon |
+| `style` | `ViewStyle` | - | Container styles |
+| `shadowStyle` | `ViewStyle \| null` | - | Shadow styles |
+
+### ComboboxContent
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `children` | `ReactNode` | - | Content elements |
+| `style` | `ViewStyle` | - | Container styles |
+| `overlayStyle` | `ViewStyle` | - | Overlay styles |
+| `animationType` | `'none' \| 'slide' \| 'fade'` | `'fade'` | Animation |
+| `maxHeight` | `number` | `300` | Max content height |
+
+### ComboboxInput
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `style` | `ViewStyle` | - | Container styles |
+| `inputStyle` | `TextStyle` | - | Input styles |
+| `clearIcon` | `ReactNode` | - | Custom clear icon |
+| `showClear` | `boolean` | `true` | Show clear button |
+| `placeholder` | `string` | - | Override placeholder |
+
+### ComboboxItem
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `value` | `string` | **required** | Option value |
+| `label` | `string` | - | Display label |
+| `children` | `ReactNode` | - | Custom content |
+| `disabled` | `boolean` | `false` | Disable item |
+| `icon` | `ReactNode` | - | Left icon |
+| `style` | `ViewStyle` | - | Container styles |
+
+### ComboboxGroup
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `label` | `string` | **required** | Group label |
+| `children` | `ReactNode` | - | Group items |
+| `style` | `ViewStyle` | - | Container styles |
+| `labelStyle` | `TextStyle` | - | Label styles |
+
+### ComboboxEmpty
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `children` | `ReactNode` | `'No results found.'` | Empty message |
+| `style` | `ViewStyle` | - | Container styles |
+
+## Accessibility
+
+- Trigger uses `accessibilityRole="combobox"` with `expanded` state
+- Items use `accessibilityRole="option"` with `selected` state
+- Search input is auto-focused when opened
+- Keyboard dismisses modal via `onRequestClose`

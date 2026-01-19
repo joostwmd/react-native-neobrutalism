@@ -1,0 +1,180 @@
+import { Meta, ArgTypes, Canvas, Story } from '@storybook/addon-docs/blocks';
+import * as CollapsibleStories from './Collapsible.stories';
+
+<Meta of={CollapsibleStories} />
+
+# Collapsible
+
+An interactive component that expands/collapses a panel with smooth animation.
+
+## Import
+
+```tsx
+import {
+  Collapsible,
+  CollapsibleTrigger,
+  CollapsibleContent,
+} from 'react-native-neobrutalism';
+```
+
+## Basic Usage
+
+```tsx
+<Collapsible>
+  <CollapsibleTrigger>Click to expand</CollapsibleTrigger>
+  <CollapsibleContent>
+    <Text>This is the hidden content.</Text>
+  </CollapsibleContent>
+</Collapsible>
+```
+
+<Canvas of={CollapsibleStories.Default} />
+
+## Default Open
+
+Use `defaultOpen` to start in the expanded state.
+
+<Canvas of={CollapsibleStories.DefaultOpen} />
+
+```tsx
+<Collapsible defaultOpen>
+  <CollapsibleTrigger>Already expanded</CollapsibleTrigger>
+  <CollapsibleContent>
+    <Text>Visible by default.</Text>
+  </CollapsibleContent>
+</Collapsible>
+```
+
+## Disabled State
+
+<Canvas of={CollapsibleStories.Disabled} />
+
+```tsx
+<Collapsible disabled>
+  <CollapsibleTrigger>Cannot expand</CollapsibleTrigger>
+  <CollapsibleContent>
+    <Text>Hidden forever.</Text>
+  </CollapsibleContent>
+</Collapsible>
+```
+
+## Without Chevron
+
+Hide the default chevron indicator.
+
+<Canvas of={CollapsibleStories.WithoutChevron} />
+
+```tsx
+<CollapsibleTrigger showChevron={false}>
+  Simple trigger
+</CollapsibleTrigger>
+```
+
+## Custom Trigger
+
+Use `asChild` to use any component as the trigger.
+
+<Canvas of={CollapsibleStories.CustomTrigger} />
+
+```tsx
+<CollapsibleTrigger asChild>
+  <Button label="Toggle Content" />
+</CollapsibleTrigger>
+```
+
+## Controlled State
+
+Control the open state externally.
+
+<Canvas of={CollapsibleStories.ControlledState} />
+
+```tsx
+const [open, setOpen] = useState(false);
+
+<Collapsible open={open} onOpenChange={setOpen}>
+  <CollapsibleTrigger>Controlled</CollapsibleTrigger>
+  <CollapsibleContent>
+    <Text>Controlled content.</Text>
+  </CollapsibleContent>
+</Collapsible>
+```
+
+## Nested Collapsibles
+
+Collapsibles can be nested inside each other.
+
+<Canvas of={CollapsibleStories.NestedCollapsibles} />
+
+## FAQ Example
+
+A common pattern for FAQ sections.
+
+<Canvas of={CollapsibleStories.FAQExample} />
+
+## Rich Content
+
+Collapsible content can contain any React Native elements.
+
+<Canvas of={CollapsibleStories.WithRichContent} />
+
+## Custom Theme
+
+<Canvas of={CollapsibleStories.CustomTheme} />
+
+```tsx
+<Collapsible
+  themeOverride={{
+    colors: { primary: '#F59E0B' },
+    border: { radius: 12 },
+  }}
+>
+  ...
+</Collapsible>
+```
+
+## Props
+
+### Collapsible
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `open` | `boolean` | - | Controlled open state |
+| `defaultOpen` | `boolean` | `false` | Default open state (uncontrolled) |
+| `onOpenChange` | `(open: boolean) => void` | - | Callback when state changes |
+| `disabled` | `boolean` | `false` | Disable interaction |
+| `themeOverride` | `NeobrutalismThemeOverride` | - | Theme overrides |
+| `style` | `ViewStyle` | - | Container styles |
+
+### CollapsibleTrigger
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `children` | `ReactNode` | - | Trigger content |
+| `asChild` | `boolean` | `false` | Clone child instead of wrapping |
+| `showChevron` | `boolean` | `true` | Show chevron indicator |
+| `chevronIcon` | `ReactNode` | - | Custom chevron icon |
+| `style` | `ViewStyle` | - | Container styles |
+| `textStyle` | `TextStyle` | - | Text styles |
+| `accessibilityLabel` | `string` | - | Accessibility label |
+
+### CollapsibleContent
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `children` | `ReactNode` | - | Content to show/hide |
+| `forceMount` | `boolean` | `false` | Keep mounted when closed |
+| `style` | `ViewStyle` | - | Container styles |
+
+## Animation
+
+The collapsible uses smooth height animation via React Native Reanimated:
+- Content height is measured automatically
+- Chevron rotates 180 degrees when expanded
+- Animation duration follows theme settings
+
+## Accessibility
+
+- Trigger uses `accessibilityRole="button"`
+- `accessibilityState.expanded` reflects open state
+- `accessibilityState.disabled` when disabled
+- Content is hidden from screen readers when collapsed

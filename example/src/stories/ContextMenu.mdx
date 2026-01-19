@@ -1,0 +1,217 @@
+import { Meta, Canvas } from '@storybook/addon-docs/blocks';
+import * as ContextMenuStories from './ContextMenu.stories';
+
+<Meta of={ContextMenuStories} />
+
+# Context Menu
+
+A context menu that appears on right-click (web) or long press (native), displaying a list of actions with a primary-colored background.
+
+## Import
+
+```tsx
+import {
+  ContextMenu,
+  ContextMenuTrigger,
+  ContextMenuContent,
+  ContextMenuItem,
+  ContextMenuCheckboxItem,
+  ContextMenuLabel,
+  ContextMenuSeparator,
+} from 'react-native-neobrutalism';
+```
+
+## Basic Usage
+
+```tsx
+<ContextMenu>
+  <ContextMenuTrigger>
+    <View style={styles.box}>
+      <Text>Right-click me</Text>
+    </View>
+  </ContextMenuTrigger>
+  <ContextMenuContent>
+    <ContextMenuItem label="Copy" onPress={handleCopy} />
+    <ContextMenuItem label="Paste" onPress={handlePaste} />
+    <ContextMenuItem label="Cut" onPress={handleCut} />
+  </ContextMenuContent>
+</ContextMenu>
+```
+
+<Canvas of={ContextMenuStories.Default} />
+
+## With Keyboard Shortcuts
+
+Display keyboard shortcuts alongside menu items.
+
+<Canvas of={ContextMenuStories.WithShortcuts} />
+
+```tsx
+<ContextMenuContent>
+  <ContextMenuItem label="Undo" shortcut="⌘Z" onPress={handleUndo} />
+  <ContextMenuItem label="Redo" shortcut="⇧⌘Z" onPress={handleRedo} />
+  <ContextMenuSeparator />
+  <ContextMenuItem label="Cut" shortcut="⌘X" onPress={handleCut} />
+  <ContextMenuItem label="Copy" shortcut="⌘C" onPress={handleCopy} />
+</ContextMenuContent>
+```
+
+## With Labels and Groups
+
+Organize items with section labels and separators.
+
+<Canvas of={ContextMenuStories.WithLabels} />
+
+```tsx
+<ContextMenuContent>
+  <ContextMenuLabel>Edit</ContextMenuLabel>
+  <ContextMenuItem label="Cut" />
+  <ContextMenuItem label="Copy" />
+  <ContextMenuSeparator />
+  <ContextMenuLabel>View</ContextMenuLabel>
+  <ContextMenuItem label="Zoom In" />
+  <ContextMenuItem label="Zoom Out" />
+</ContextMenuContent>
+```
+
+## Checkbox Items
+
+Toggle options with checkbox menu items.
+
+<Canvas of={ContextMenuStories.WithCheckbox} />
+
+```tsx
+const [showGrid, setShowGrid] = useState(true);
+
+<ContextMenuContent>
+  <ContextMenuLabel>View Options</ContextMenuLabel>
+  <ContextMenuCheckboxItem
+    label="Show Grid"
+    checked={showGrid}
+    onCheckedChange={setShowGrid}
+  />
+</ContextMenuContent>
+```
+
+## Destructive Actions
+
+Highlight dangerous actions with destructive styling.
+
+<Canvas of={ContextMenuStories.DestructiveActions} />
+
+```tsx
+<ContextMenuContent>
+  <ContextMenuItem label="Open" onPress={handleOpen} />
+  <ContextMenuItem label="Share" onPress={handleShare} />
+  <ContextMenuSeparator />
+  <ContextMenuItem
+    label="Move to Trash"
+    destructive
+    onPress={handleDelete}
+  />
+</ContextMenuContent>
+```
+
+## Disabled Items
+
+<Canvas of={ContextMenuStories.DisabledItems} />
+
+```tsx
+<ContextMenuItem label="Cut" disabled />
+<ContextMenuItem label="Copy" onPress={handleCopy} />
+<ContextMenuItem label="Paste" disabled />
+```
+
+## On Card
+
+<Canvas of={ContextMenuStories.OnCard} />
+
+## Custom Theme
+
+<Canvas of={ContextMenuStories.CustomTheme} />
+
+## Props
+
+### ContextMenu
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `children` | `ReactNode` | **required** | Trigger and Content components |
+| `open` | `boolean` | - | Controlled open state |
+| `defaultOpen` | `boolean` | `false` | Default open state |
+| `onOpenChange` | `(open: boolean) => void` | - | Open state callback |
+| `themeOverride` | `NeobrutalismThemeOverride` | - | Theme overrides |
+
+### ContextMenuTrigger
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `children` | `ReactNode` | **required** | Content to trigger on right-click/long press |
+| `style` | `ViewStyle` | - | Container styles |
+| `disabled` | `boolean` | `false` | Disable the trigger |
+| `delayLongPress` | `number` | `500` | Long press delay in ms (native only) |
+
+### ContextMenuContent
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `children` | `ReactNode` | **required** | Menu items |
+| `style` | `ViewStyle` | - | Container styles |
+| `overlayStyle` | `ViewStyle` | - | Overlay styles |
+| `animationType` | `'none' \| 'slide' \| 'fade'` | `'fade'` | Animation type |
+
+### ContextMenuItem
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `label` | `string` | - | Item label |
+| `children` | `ReactNode` | - | Custom content |
+| `onPress` | `() => void` | - | Press callback |
+| `disabled` | `boolean` | `false` | Disable item |
+| `icon` | `ReactNode` | - | Left icon |
+| `shortcut` | `string` | - | Keyboard shortcut hint |
+| `shortcutStyle` | `TextStyle` | - | Shortcut text styles |
+| `destructive` | `boolean` | `false` | Destructive styling (red) |
+| `style` | `ViewStyle` | - | Container styles |
+| `textStyle` | `TextStyle` | - | Label text styles |
+
+### ContextMenuCheckboxItem
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `label` | `string` | - | Item label |
+| `checked` | `boolean` | `false` | Checked state |
+| `onCheckedChange` | `(checked: boolean) => void` | - | Change callback |
+| `disabled` | `boolean` | `false` | Disable item |
+| `shortcut` | `string` | - | Keyboard shortcut hint |
+| `style` | `ViewStyle` | - | Container styles |
+
+### ContextMenuLabel
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `children` | `ReactNode` | **required** | Label text |
+| `style` | `ViewStyle` | - | Container styles |
+| `textStyle` | `TextStyle` | - | Text styles |
+
+### ContextMenuSeparator
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `style` | `ViewStyle` | - | Separator styles |
+
+## Behavior
+
+- **Web**: Opens on right-click, menu appears at cursor position
+- **Native**: Opens on long press (500ms default), menu appears at touch point
+- **Hover**: Items show a border highlight on hover (non-disabled items only)
+- **Dismiss**: Click outside or press back button to close
+
+## Accessibility
+
+- Trigger has `accessibilityRole="button"` with descriptive label
+- Menu items use `accessibilityRole="menuitem"` with disabled state
+- Checkbox items use `accessibilityRole="checkbox"` with checked state
+- Labels use `accessibilityRole="header"`
+- Separators use `accessibilityRole="separator"`
+- Modal can be dismissed via back button (`onRequestClose`)

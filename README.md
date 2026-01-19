@@ -2,6 +2,10 @@
 
 Customizable Neo-Brutalism UI components library for React Native.
 
+> **Early Alpha**
+>
+> This library is in active development and should be considered alpha. I'm still learning the ins and outs of React Native library tooling, so you may encounter rough edges or unexpected issues. If something breaks or doesn't work as expected, please [open an issue](https://github.com/codebykarthick/react-native-neobrutalism/issues) — I'm committed to fixing bugs and improving the library as quickly as I can. Your feedback and patience are greatly appreciated!
+
 ## Features
 
 - Bold borders, offset shadows, and vibrant colors following neobrutalism design
