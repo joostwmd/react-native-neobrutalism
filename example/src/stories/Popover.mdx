@@ -1,0 +1,127 @@
+import { Meta, ArgTypes, Canvas, Story } from '@storybook/addon-docs/blocks';
+import * as PopoverStories from './Popover.stories';
+
+<Meta of={PopoverStories} />
+
+# Popover
+
+A popup dialog that appears below a trigger element. Useful for displaying additional content, forms, or information without navigating away from the current view.
+
+## Import
+
+```tsx
+import {
+  Popover,
+  PopoverTrigger,
+  PopoverContent,
+} from 'react-native-neobrutalism';
+```
+
+## Basic Usage
+
+```tsx
+<Popover>
+  <PopoverTrigger>
+    <Button>Open Popover</Button>
+  </PopoverTrigger>
+  <PopoverContent>
+    <Text>Popover content here</Text>
+  </PopoverContent>
+</Popover>
+```
+
+<Canvas of={PopoverStories.Default} />
+
+## Controlled State
+
+Control the popover open state externally.
+
+<Canvas of={PopoverStories.ControlledState} />
+
+```tsx
+const [open, setOpen] = useState(false);
+
+<Popover open={open} onOpenChange={setOpen}>
+  <PopoverTrigger>
+    <Button>Toggle Popover</Button>
+  </PopoverTrigger>
+  <PopoverContent>
+    <Text>Controlled content</Text>
+    <Button onPress={() => setOpen(false)}>Close</Button>
+  </PopoverContent>
+</Popover>
+```
+
+## Alignment
+
+Align the popover relative to the trigger.
+
+<Canvas of={PopoverStories.Alignments} />
+
+```tsx
+// Align to start (left edge)
+<PopoverContent align="start">...</PopoverContent>
+
+// Align to center (default)
+<PopoverContent align="center">...</PopoverContent>
+
+// Align to end (right edge)
+<PopoverContent align="end">...</PopoverContent>
+```
+
+## Form Example
+
+Use popovers to display inline forms.
+
+<Canvas of={PopoverStories.FormExample} />
+
+## Information Popover
+
+Display contextual help or information.
+
+<Canvas of={PopoverStories.InfoPopover} />
+
+## Custom Theme
+
+<Canvas of={PopoverStories.CustomTheme} />
+
+## Props
+
+### Popover
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `children` | `ReactNode` | - | Trigger and Content components |
+| `open` | `boolean` | - | Controlled open state |
+| `defaultOpen` | `boolean` | `false` | Default open state |
+| `onOpenChange` | `(open: boolean) => void` | - | Open state callback |
+| `themeOverride` | `NeobrutalismThemeOverride` | - | Theme overrides |
+
+### PopoverTrigger
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `children` | `ReactNode` | - | Trigger content |
+| `asChild` | `boolean` | `false` | Clone child and merge onPress |
+| `style` | `ViewStyle` | - | Container styles |
+| `disabled` | `boolean` | `false` | Disable trigger |
+| `accessibilityLabel` | `string` | `'Open popover'` | Accessibility label |
+
+### PopoverContent
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `children` | `ReactNode` | - | Content elements |
+| `style` | `ViewStyle` | - | Container styles |
+| `overlayStyle` | `ViewStyle` | - | Overlay styles |
+| `animationType` | `'none' \| 'slide' \| 'fade'` | `'fade'` | Animation type |
+| `align` | `'start' \| 'center' \| 'end'` | `'center'` | Horizontal alignment |
+| `side` | `'top' \| 'bottom'` | `'bottom'` | Side to open on |
+| `sideOffset` | `number` | `4` | Offset from trigger |
+| `accessibilityLabel` | `string` | - | Accessibility label |
+
+## Accessibility
+
+- Trigger uses `accessibilityRole="button"` with `expanded` state
+- Content uses Modal with `accessibilityViewIsModal`
+- Pressing outside or back button dismisses the popover

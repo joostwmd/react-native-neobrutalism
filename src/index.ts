@@ -62,6 +62,31 @@ export type {
   AlertDialogCancelProps,
 } from './alert-dialog';
 
+// Dialog exports
+export {
+  Dialog,
+  DialogTrigger,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+  DialogFooter,
+  DialogClose,
+  DialogContext,
+  useDialogContext,
+} from './dialog';
+export type {
+  DialogProps,
+  DialogTriggerProps,
+  DialogContentProps,
+  DialogHeaderProps,
+  DialogTitleProps,
+  DialogDescriptionProps,
+  DialogFooterProps,
+  DialogCloseProps,
+  DialogContextValue,
+} from './dialog';
+
 // Accordion exports
 export {
   Accordion,
@@ -224,6 +249,85 @@ export type {
 // Icon exports
 export { CheckIcon, MinusIcon, ChevronDownIcon, XIcon } from './icons';
 export type { IconProps } from './icons';
+
+// Popover exports
+export {
+  Popover,
+  PopoverTrigger,
+  PopoverContent,
+  PopoverContext,
+  usePopoverContext,
+} from './popover';
+export type {
+  PopoverProps,
+  PopoverTriggerProps,
+  PopoverContentProps,
+  PopoverContextValue,
+} from './popover';
+
+// DatePicker exports
+export { DatePicker } from './date-picker';
+export type { DatePickerProps } from './date-picker';
+
+// Table exports
+export {
+  Table,
+  TableHeader,
+  TableBody,
+  TableRow,
+  TableHead,
+  TableCell,
+  TableContext,
+  useTableContext,
+} from './table';
+export type {
+  TableProps,
+  TableHeaderProps,
+  TableBodyProps,
+  TableRowProps,
+  TableHeadProps,
+  TableCellProps,
+  TableContextValue,
+} from './table';
+
+// DropdownMenu exports
+export {
+  DropdownMenu,
+  DropdownMenuTrigger,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuCheckboxItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuContext,
+  useDropdownMenuContext,
+} from './dropdown-menu';
+export type {
+  DropdownMenuProps,
+  DropdownMenuTriggerProps,
+  DropdownMenuContentProps,
+  DropdownMenuItemProps,
+  DropdownMenuCheckboxItemProps,
+  DropdownMenuLabelProps,
+  DropdownMenuSeparatorProps,
+  DropdownMenuContextValue,
+} from './dropdown-menu';
+
+// DataTable exports
+export {
+  DataTable,
+  DataTablePagination,
+  DataTableColumnHeader,
+  DataTableToolbar,
+  DataTableViewOptions,
+} from './data-table';
+export type {
+  DataTableProps,
+  DataTablePaginationProps,
+  DataTableColumnHeaderProps,
+  DataTableToolbarProps,
+  DataTableViewOptionsProps,
+} from './data-table';
 
 // Utility exports
 export { deepMerge } from './utils';

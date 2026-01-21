@@ -1,0 +1,244 @@
+import { Meta, ArgTypes, Canvas, Story } from '@storybook/addon-docs/blocks';
+import * as DataTableStories from './DataTable.stories';
+
+<Meta of={DataTableStories} />
+
+# DataTable
+
+A powerful data table built on @tanstack/react-table with sorting, filtering, pagination, row selection, and column visibility features.
+
+## Dependencies
+
+This component requires `@tanstack/react-table` as a peer dependency:
+
+```bash
+npm install @tanstack/react-table
+# or
+yarn add @tanstack/react-table
+```
+
+## Import
+
+```tsx
+import {
+  DataTable,
+  DataTablePagination,
+  DataTableColumnHeader,
+  DataTableToolbar,
+  DataTableViewOptions,
+} from 'react-native-neobrutalism';
+import type { ColumnDef } from '@tanstack/react-table';
+```
+
+## Basic Usage
+
+```tsx
+interface Payment {
+  id: string;
+  amount: number;
+  status: string;
+  email: string;
+}
+
+const columns: ColumnDef<Payment>[] = [
+  { accessorKey: 'status', header: 'Status' },
+  { accessorKey: 'email', header: 'Email' },
+  { accessorKey: 'amount', header: 'Amount' },
+];
+
+<DataTable columns={columns} data={payments} />
+```
+
+<Canvas of={DataTableStories.Default} />
+
+## With Sorting
+
+Enable column sorting.
+
+<Canvas of={DataTableStories.WithSorting} />
+
+```tsx
+<DataTable
+  columns={columns}
+  data={data}
+  enableSorting
+/>
+```
+
+## With Pagination
+
+Enable pagination with page size options.
+
+<Canvas of={DataTableStories.WithPagination} />
+
+```tsx
+<DataTable
+  columns={columns}
+  data={data}
+  enablePagination
+  pageSize={5}
+  pageSizeOptions={[5, 10, 20]}
+/>
+```
+
+## With Row Selection
+
+Enable row selection with checkboxes.
+
+<Canvas of={DataTableStories.WithRowSelection} />
+
+```tsx
+<DataTable
+  columns={columns}
+  data={data}
+  enableRowSelection
+/>
+```
+
+## Full Featured
+
+Combine all features with custom toolbar.
+
+<Canvas of={DataTableStories.FullFeatured} />
+
+```tsx
+<DataTable
+  columns={columns}
+  data={data}
+  enableSorting
+  enablePagination
+  enableRowSelection
+  pageSize={5}
+  renderToolbar={(table) => (
+    <View style={{ flexDirection: 'row', gap: 16 }}>
+      <DataTableToolbar
+        table={table}
+        filterColumn="email"
+        filterPlaceholder="Filter emails..."
+      />
+      <DataTableViewOptions table={table} />
+    </View>
+  )}
+/>
+```
+
+## Custom Cell Rendering
+
+Render custom content in cells using column definitions.
+
+<Canvas of={DataTableStories.UserTable} />
+
+```tsx
+const columns: ColumnDef<Payment>[] = [
+  {
+    accessorKey: 'status',
+    header: 'Status',
+    cell: ({ row }) => {
+      const status = row.getValue('status');
+      return <Badge variant={status === 'success' ? 'default' : 'destructive'}>{status}</Badge>;
+    },
+  },
+  {
+    accessorKey: 'amount',
+    header: 'Amount',
+    cell: ({ row }) => {
+      const amount = parseFloat(row.getValue('amount'));
+      return <Text>${amount.toFixed(2)}</Text>;
+    },
+  },
+];
+```
+
+## Empty State
+
+Customize the empty state display.
+
+<Canvas of={DataTableStories.EmptyState} />
+
+```tsx
+<DataTable
+  columns={columns}
+  data={[]}
+  renderEmpty={() => (
+    <View style={{ padding: 32, alignItems: 'center' }}>
+      <Text>No data available</Text>
+    </View>
+  )}
+/>
+```
+
+## Without Shadow
+
+<Canvas of={DataTableStories.NoShadow} />
+
+## Custom Theme
+
+<Canvas of={DataTableStories.CustomTheme} />
+
+## Props
+
+### DataTable
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `columns` | `ColumnDef<TData>[]` | **required** | Column definitions |
+| `data` | `TData[]` | **required** | Table data |
+| `enableRowSelection` | `boolean` | `false` | Enable row selection |
+| `enableSorting` | `boolean` | `false` | Enable column sorting |
+| `enableFiltering` | `boolean` | `false` | Enable column filters |
+| `enableColumnVisibility` | `boolean` | `false` | Enable column visibility toggle |
+| `enablePagination` | `boolean` | `false` | Enable pagination |
+| `pageSize` | `number` | `10` | Initial page size |
+| `pageSizeOptions` | `number[]` | `[10,20,30,40,50]` | Page size options |
+| `sorting` | `SortingState` | - | Controlled sorting state |
+| `onSortingChange` | `(sorting) => void` | - | Sorting callback |
+| `columnFilters` | `ColumnFiltersState` | - | Controlled filters state |
+| `onColumnFiltersChange` | `(filters) => void` | - | Filters callback |
+| `columnVisibility` | `VisibilityState` | - | Controlled visibility state |
+| `onColumnVisibilityChange` | `(vis) => void` | - | Visibility callback |
+| `rowSelection` | `RowSelectionState` | - | Controlled selection state |
+| `onRowSelectionChange` | `(sel) => void` | - | Selection callback |
+| `style` | `ViewStyle` | - | Table container styles |
+| `shadowStyle` | `ViewStyle \| null` | - | Shadow styles |
+| `themeOverride` | `NeobrutalismThemeOverride` | - | Theme overrides |
+| `renderToolbar` | `(table) => ReactNode` | - | Custom toolbar render |
+| `renderEmpty` | `() => ReactNode` | - | Empty state render |
+
+### DataTableToolbar
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `table` | `Table<TData>` | **required** | Table instance |
+| `filterColumn` | `string` | - | Column to filter |
+| `filterPlaceholder` | `string` | `'Filter...'` | Filter placeholder |
+| `style` | `ViewStyle` | - | Container styles |
+
+### DataTableViewOptions
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `table` | `Table<TData>` | **required** | Table instance |
+| `style` | `ViewStyle` | - | Container styles |
+
+### DataTableColumnHeader
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `column` | `Column<TData>` | **required** | Column instance |
+| `title` | `string` | **required** | Header title |
+| `style` | `ViewStyle` | - | Container styles |
+| `textStyle` | `TextStyle` | - | Text styles |
+
+### DataTablePagination
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `table` | `Table<TData>` | **required** | Table instance |
+| `pageSizeOptions` | `number[]` | `[10,20,30,40,50]` | Page size options |
+| `style` | `ViewStyle` | - | Container styles |
+
+## Accessibility
+
+- Row selection uses accessible checkboxes
+- Sortable columns are keyboard accessible
+- Selection count is announced

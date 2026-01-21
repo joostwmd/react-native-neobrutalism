@@ -1,0 +1,154 @@
+import { Meta, ArgTypes, Canvas, Story } from '@storybook/addon-docs/blocks';
+import * as DatePickerStories from './DatePicker.stories';
+
+<Meta of={DatePickerStories} />
+
+# DatePicker
+
+A date selection component that combines a trigger button with a calendar popover. Perfect for forms and date selection interfaces.
+
+## Import
+
+```tsx
+import { DatePicker } from 'react-native-neobrutalism';
+```
+
+## Basic Usage
+
+```tsx
+const [date, setDate] = useState<Date | undefined>();
+
+<DatePicker
+  value={date}
+  onValueChange={setDate}
+  placeholder="Pick a date"
+/>
+```
+
+<Canvas of={DatePickerStories.Default} />
+
+## With Default Value
+
+Start with a pre-selected date.
+
+<Canvas of={DatePickerStories.WithDefaultValue} />
+
+```tsx
+const [date, setDate] = useState<Date | undefined>(new Date());
+
+<DatePicker
+  value={date}
+  onValueChange={setDate}
+/>
+```
+
+## Custom Date Format
+
+Use a custom formatter for the display text.
+
+<Canvas of={DatePickerStories.CustomFormat} />
+
+```tsx
+const formatDate = (date: Date) => {
+  return date.toLocaleDateString('en-US', {
+    weekday: 'short',
+    month: 'short',
+    day: 'numeric',
+    year: 'numeric',
+  });
+};
+
+<DatePicker
+  value={date}
+  onValueChange={setDate}
+  formatDate={formatDate}
+/>
+```
+
+## With Date Constraints
+
+Restrict selectable dates with min/max boundaries.
+
+<Canvas of={DatePickerStories.WithConstraints} />
+
+```tsx
+const today = new Date();
+const minDate = new Date(today.getFullYear(), today.getMonth(), 1);
+const maxDate = new Date(today.getFullYear(), today.getMonth() + 2, 0);
+
+<DatePicker
+  value={date}
+  onValueChange={setDate}
+  minDate={minDate}
+  maxDate={maxDate}
+/>
+```
+
+## With Disabled Dates
+
+Disable specific dates from selection.
+
+<Canvas of={DatePickerStories.WithDisabledDates} />
+
+```tsx
+const disabledDates = [
+  new Date(2025, 0, 10),
+  new Date(2025, 0, 15),
+  new Date(2025, 0, 20),
+];
+
+<DatePicker
+  value={date}
+  onValueChange={setDate}
+  disabledDates={disabledDates}
+/>
+```
+
+## Disabled State
+
+<Canvas of={DatePickerStories.Disabled} />
+
+```tsx
+<DatePicker
+  value={date}
+  disabled
+  placeholder="Cannot select"
+/>
+```
+
+## Form Example
+
+Use multiple date pickers for date ranges.
+
+<Canvas of={DatePickerStories.FormExample} />
+
+## Custom Theme
+
+<Canvas of={DatePickerStories.CustomTheme} />
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `value` | `Date` | - | Controlled selected date |
+| `defaultValue` | `Date` | - | Default date (uncontrolled) |
+| `onValueChange` | `(date: Date \| undefined) => void` | - | Selection callback |
+| `placeholder` | `string` | `'Pick a date'` | Placeholder text |
+| `formatDate` | `(date: Date) => string` | `toLocaleDateString()` | Custom date formatter |
+| `minDate` | `Date` | - | Minimum selectable date |
+| `maxDate` | `Date` | - | Maximum selectable date |
+| `disabledDates` | `Date[]` | - | Array of disabled dates |
+| `disabled` | `boolean` | `false` | Disable the picker |
+| `triggerStyle` | `ViewStyle` | - | Override trigger button styles |
+| `triggerTextStyle` | `TextStyle` | - | Override trigger text styles |
+| `triggerShadowStyle` | `ViewStyle \| null` | - | Override trigger shadow |
+| `calendarStyle` | `ViewStyle` | - | Override calendar styles |
+| `popoverStyle` | `ViewStyle` | - | Override popover content styles |
+| `themeOverride` | `NeobrutalismThemeOverride` | - | Theme overrides |
+| `accessibilityLabel` | `string` | `'Select date'` | Accessibility label |
+
+## Accessibility
+
+- Trigger button announces selected date or "No date selected"
+- Calendar is fully accessible with proper roles
+- Supports keyboard navigation on web

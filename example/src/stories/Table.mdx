@@ -1,0 +1,165 @@
+import { Meta, ArgTypes, Canvas, Story } from '@storybook/addon-docs/blocks';
+import * as TableStories from './Table.stories';
+
+<Meta of={TableStories} />
+
+# Table
+
+A semantic table component for displaying tabular data with neobrutalism styling.
+
+## Import
+
+```tsx
+import {
+  Table,
+  TableHeader,
+  TableBody,
+  TableRow,
+  TableHead,
+  TableCell,
+} from 'react-native-neobrutalism';
+```
+
+## Basic Usage
+
+```tsx
+<Table>
+  <TableHeader>
+    <TableRow>
+      <TableHead>Name</TableHead>
+      <TableHead>Email</TableHead>
+    </TableRow>
+  </TableHeader>
+  <TableBody>
+    <TableRow>
+      <TableCell>John Doe</TableCell>
+      <TableCell>john@example.com</TableCell>
+    </TableRow>
+  </TableBody>
+</Table>
+```
+
+<Canvas of={TableStories.Default} />
+
+## With Sorting
+
+Make columns sortable with sorting indicators.
+
+<Canvas of={TableStories.WithSorting} />
+
+```tsx
+<TableHead
+  sortable
+  sortDirection={sortDirection}
+  onSort={handleSort}
+>
+  Amount
+</TableHead>
+```
+
+## With Selection
+
+Enable row selection with press handling.
+
+<Canvas of={TableStories.WithSelection} />
+
+```tsx
+<TableRow
+  selected={isSelected}
+  onPress={() => toggleSelect(id)}
+>
+  ...
+</TableRow>
+```
+
+## With Custom Content
+
+Render any React components in cells.
+
+<Canvas of={TableStories.WithCustomContent} />
+
+```tsx
+<TableCell>
+  <Badge variant="default">Paid</Badge>
+</TableCell>
+```
+
+## Without Shadow
+
+<Canvas of={TableStories.NoShadow} />
+
+```tsx
+<Table shadowStyle={null}>
+  ...
+</Table>
+```
+
+## Custom Theme
+
+<Canvas of={TableStories.CustomTheme} />
+
+## Props
+
+### Table
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `children` | `ReactNode` | - | TableHeader and TableBody |
+| `style` | `ViewStyle` | - | Override container styles |
+| `shadowStyle` | `ViewStyle \| null` | - | Override shadow styles |
+| `themeOverride` | `NeobrutalismThemeOverride` | - | Theme overrides |
+| `accessibilityLabel` | `string` | `'Table'` | Accessibility label |
+
+### TableHeader
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `children` | `ReactNode` | - | TableRow components |
+| `style` | `ViewStyle` | - | Override container styles |
+
+### TableBody
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `children` | `ReactNode` | - | TableRow components |
+| `style` | `ViewStyle` | - | Override container styles |
+
+### TableRow
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `children` | `ReactNode` | - | TableHead or TableCell components |
+| `style` | `ViewStyle` | - | Override container styles |
+| `selected` | `boolean` | `false` | Selected state styling |
+| `onPress` | `() => void` | - | Press handler for selectable rows |
+
+### TableHead
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `children` | `ReactNode` | - | Header content |
+| `style` | `ViewStyle` | - | Override container styles |
+| `textStyle` | `TextStyle` | - | Override text styles |
+| `sortable` | `boolean` | `false` | Enable sorting |
+| `sortDirection` | `'asc' \| 'desc' \| null` | `null` | Current sort direction |
+| `onSort` | `() => void` | - | Sort handler |
+| `flex` | `number` | `1` | Column flex value |
+| `width` | `number` | - | Fixed column width |
+| `align` | `'left' \| 'center' \| 'right'` | `'left'` | Text alignment |
+
+### TableCell
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `children` | `ReactNode` | - | Cell content |
+| `style` | `ViewStyle` | - | Override container styles |
+| `textStyle` | `TextStyle` | - | Override text styles |
+| `flex` | `number` | `1` | Column flex value |
+| `width` | `number` | - | Fixed column width |
+| `align` | `'left' \| 'center' \| 'right'` | `'left'` | Text alignment |
+
+## Accessibility
+
+- Table uses semantic structure with header and body sections
+- Selectable rows have `accessibilityRole="button"`
+- Sortable headers indicate sort state

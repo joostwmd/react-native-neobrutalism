@@ -38,7 +38,7 @@ export const Default: Story = {
     <Alert>
       <AlertTitle>Heads up!</AlertTitle>
       <AlertDescription>
-        You can add components to your app using the CLI.
+        This is an important notification for the user.
       </AlertDescription>
     </Alert>
   ),

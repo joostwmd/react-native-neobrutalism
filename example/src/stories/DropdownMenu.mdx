@@ -1,0 +1,197 @@
+import { Meta, ArgTypes, Canvas, Story } from '@storybook/addon-docs/blocks';
+import * as DropdownMenuStories from './DropdownMenu.stories';
+
+<Meta of={DropdownMenuStories} />
+
+# DropdownMenu
+
+A menu that appears below a trigger element on press. Similar to ContextMenu but triggers on click/press instead of right-click/long-press.
+
+## Import
+
+```tsx
+import {
+  DropdownMenu,
+  DropdownMenuTrigger,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuCheckboxItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+} from 'react-native-neobrutalism';
+```
+
+## Basic Usage
+
+```tsx
+<DropdownMenu>
+  <DropdownMenuTrigger>
+    <Button>Open Menu</Button>
+  </DropdownMenuTrigger>
+  <DropdownMenuContent>
+    <DropdownMenuLabel>My Account</DropdownMenuLabel>
+    <DropdownMenuSeparator />
+    <DropdownMenuItem label="Profile" onPress={handleProfile} />
+    <DropdownMenuItem label="Settings" onPress={handleSettings} />
+    <DropdownMenuItem label="Logout" onPress={handleLogout} />
+  </DropdownMenuContent>
+</DropdownMenu>
+```
+
+<Canvas of={DropdownMenuStories.Default} />
+
+## With Icons and Shortcuts
+
+Add icons and keyboard shortcut hints to menu items.
+
+<Canvas of={DropdownMenuStories.WithIcons} />
+
+```tsx
+<DropdownMenuItem
+  label="Edit"
+  icon={<EditIcon />}
+  shortcut="⌘E"
+  onPress={handleEdit}
+/>
+
+<DropdownMenuItem
+  label="Delete"
+  destructive
+  onPress={handleDelete}
+/>
+```
+
+## With Checkboxes
+
+Create toggleable options with checkbox items.
+
+<Canvas of={DropdownMenuStories.WithCheckboxes} />
+
+```tsx
+<DropdownMenuCheckboxItem
+  label="Show Status Bar"
+  checked={showStatusBar}
+  onCheckedChange={setShowStatusBar}
+/>
+```
+
+## Alignment Options
+
+Control where the menu appears relative to the trigger.
+
+<Canvas of={DropdownMenuStories.Alignments} />
+
+```tsx
+// Align to start (left edge)
+<DropdownMenuContent align="start">...</DropdownMenuContent>
+
+// Align to center
+<DropdownMenuContent align="center">...</DropdownMenuContent>
+
+// Align to end (right edge)
+<DropdownMenuContent align="end">...</DropdownMenuContent>
+```
+
+## Disabled Items
+
+<Canvas of={DropdownMenuStories.DisabledItems} />
+
+```tsx
+<DropdownMenuItem label="Save" disabled onPress={() => {}} />
+```
+
+## Controlled State
+
+<Canvas of={DropdownMenuStories.ControlledState} />
+
+```tsx
+const [open, setOpen] = useState(false);
+
+<DropdownMenu open={open} onOpenChange={setOpen}>
+  ...
+</DropdownMenu>
+```
+
+## Custom Theme
+
+<Canvas of={DropdownMenuStories.CustomTheme} />
+
+## Props
+
+### DropdownMenu
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `children` | `ReactNode` | - | Trigger and Content components |
+| `open` | `boolean` | - | Controlled open state |
+| `defaultOpen` | `boolean` | `false` | Default open state |
+| `onOpenChange` | `(open: boolean) => void` | - | Open state callback |
+| `themeOverride` | `NeobrutalismThemeOverride` | - | Theme overrides |
+
+### DropdownMenuTrigger
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `children` | `ReactNode` | - | Trigger content |
+| `asChild` | `boolean` | `false` | Clone child and merge onPress |
+| `style` | `ViewStyle` | - | Container styles |
+| `disabled` | `boolean` | `false` | Disable trigger |
+| `accessibilityLabel` | `string` | - | Accessibility label |
+
+### DropdownMenuContent
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `children` | `ReactNode` | - | Menu items |
+| `style` | `ViewStyle` | - | Container styles |
+| `overlayStyle` | `ViewStyle` | - | Overlay styles |
+| `animationType` | `'none' \| 'slide' \| 'fade'` | `'fade'` | Animation type |
+| `align` | `'start' \| 'center' \| 'end'` | `'start'` | Horizontal alignment |
+| `sideOffset` | `number` | `4` | Offset from trigger |
+
+### DropdownMenuItem
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `label` | `string` | - | Item label |
+| `children` | `ReactNode` | - | Custom content |
+| `onPress` | `() => void` | - | Press handler |
+| `disabled` | `boolean` | `false` | Disable item |
+| `icon` | `ReactNode` | - | Left icon |
+| `shortcut` | `string` | - | Keyboard shortcut hint |
+| `destructive` | `boolean` | `false` | Destructive styling |
+| `style` | `ViewStyle` | - | Container styles |
+| `textStyle` | `TextStyle` | - | Text styles |
+
+### DropdownMenuCheckboxItem
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `label` | `string` | - | Item label |
+| `checked` | `boolean` | `false` | Checked state |
+| `onCheckedChange` | `(checked: boolean) => void` | - | Change handler |
+| `disabled` | `boolean` | `false` | Disable item |
+| `shortcut` | `string` | - | Keyboard shortcut hint |
+| `style` | `ViewStyle` | - | Container styles |
+| `textStyle` | `TextStyle` | - | Text styles |
+
+### DropdownMenuLabel
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `children` | `ReactNode` | - | Label content |
+| `style` | `ViewStyle` | - | Container styles |
+| `textStyle` | `TextStyle` | - | Text styles |
+
+### DropdownMenuSeparator
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `style` | `ViewStyle` | - | Separator styles |
+
+## Accessibility
+
+- Trigger uses `accessibilityRole="button"` with `expanded` state
+- Items use `accessibilityRole="menuitem"`
+- Checkbox items use `accessibilityRole="checkbox"`
+- Pressing outside or back button dismisses menu

@@ -1,0 +1,202 @@
+import { Meta, ArgTypes, Canvas, Story } from '@storybook/addon-docs/blocks';
+import * as DialogStories from './Dialog.stories';
+
+<Meta of={DialogStories} />
+
+# Dialog
+
+A modal dialog component for displaying content that requires user attention. Unlike AlertDialog, Dialog can be dismissed by clicking the backdrop and is suitable for general-purpose modal content like forms, settings, or information.
+
+## Import
+
+```tsx
+import {
+  Dialog,
+  DialogTrigger,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+  DialogFooter,
+  DialogClose,
+} from 'react-native-neobrutalism';
+```
+
+## Basic Usage
+
+```tsx
+<Dialog>
+  <DialogTrigger asChild>
+    <Button label="Open Dialog" />
+  </DialogTrigger>
+  <DialogContent>
+    <DialogHeader>
+      <DialogTitle>Edit Profile</DialogTitle>
+      <DialogDescription>
+        Make changes to your profile here.
+      </DialogDescription>
+    </DialogHeader>
+    {/* Your content */}
+    <DialogFooter>
+      <DialogClose asChild>
+        <Button label="Cancel" variant="secondary" />
+      </DialogClose>
+      <Button label="Save" />
+    </DialogFooter>
+  </DialogContent>
+</Dialog>
+```
+
+<Canvas of={DialogStories.Default} />
+
+## Simple Dialog
+
+A minimal dialog with just a message and close button.
+
+<Canvas of={DialogStories.Simple} />
+
+## With Close Button
+
+Add a close (X) button in the corner using `DialogClose` without `asChild`.
+
+<Canvas of={DialogStories.WithCloseButton} />
+
+```tsx
+<DialogContent>
+  <DialogClose /> {/* Renders X button in top-right */}
+  <DialogHeader>
+    <DialogTitle>Title</DialogTitle>
+  </DialogHeader>
+</DialogContent>
+```
+
+## Controlled Dialog
+
+Control the dialog state externally for programmatic opening/closing.
+
+<Canvas of={DialogStories.Controlled} />
+
+```tsx
+const [open, setOpen] = useState(false);
+
+<Dialog open={open} onOpenChange={setOpen}>
+  <DialogContent>
+    {/* No trigger needed when controlled */}
+  </DialogContent>
+</Dialog>
+```
+
+## Prevent Backdrop Close
+
+Disable closing on backdrop press for important dialogs.
+
+<Canvas of={DialogStories.NoBackdropClose} />
+
+```tsx
+<DialogContent closeOnBackdropPress={false}>
+  {/* User must click a button to close */}
+</DialogContent>
+```
+
+## Form Dialog
+
+Use Dialog for forms that require user input.
+
+<Canvas of={DialogStories.FormDialog} />
+
+## Custom Theme
+
+<Canvas of={DialogStories.CustomTheme} />
+
+## Without Shadow
+
+<Canvas of={DialogStories.NoShadow} />
+
+```tsx
+<DialogContent shadowStyle={null}>
+  {/* Flat design without shadow */}
+</DialogContent>
+```
+
+## Dialog vs AlertDialog
+
+| Feature | Dialog | AlertDialog |
+|---------|--------|-------------|
+| Backdrop close | Yes (default) | No |
+| Use case | General content, forms | Confirmations, alerts |
+| Close button | Optional `DialogClose` | Cancel/Action buttons |
+| Required action | No | Yes |
+
+## Props
+
+### Dialog
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `open` | `boolean` | - | Controlled open state |
+| `defaultOpen` | `boolean` | `false` | Default open state |
+| `onOpenChange` | `(open: boolean) => void` | - | Open state callback |
+| `themeOverride` | `NeobrutalismThemeOverride` | - | Theme overrides |
+
+### DialogTrigger
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `children` | `ReactNode` | **required** | Trigger element |
+| `asChild` | `boolean` | `false` | Merge onPress into child |
+
+### DialogContent
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `children` | `ReactNode` | **required** | Content |
+| `style` | `ViewStyle` | - | Container styles |
+| `overlayStyle` | `ViewStyle` | - | Backdrop styles |
+| `shadowStyle` | `ViewStyle \| null` | - | Shadow styles |
+| `animationType` | `'none' \| 'slide' \| 'fade'` | `'fade'` | Animation type |
+| `closeOnBackdropPress` | `boolean` | `true` | Close on backdrop tap |
+| `accessibilityLabel` | `string` | - | Accessibility label |
+
+### DialogHeader
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `children` | `ReactNode` | **required** | Header content |
+| `style` | `ViewStyle` | - | Container styles |
+
+### DialogTitle
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `children` | `ReactNode` | **required** | Title text |
+| `style` | `TextStyle` | - | Text styles |
+
+### DialogDescription
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `children` | `ReactNode` | **required** | Description text |
+| `style` | `TextStyle` | - | Text styles |
+
+### DialogFooter
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `children` | `ReactNode` | **required** | Footer content |
+| `style` | `ViewStyle` | - | Container styles |
+
+### DialogClose
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `children` | `ReactNode` | X icon | Close button content |
+| `asChild` | `boolean` | `false` | Merge onPress into child |
+| `onPress` | `() => void` | - | Press handler |
+| `style` | `ViewStyle` | - | Button styles |
+
+## Accessibility
+
+- Modal has `accessibilityViewIsModal` for screen readers
+- DialogTitle has `accessibilityRole="header"`
+- DialogClose has `accessibilityLabel="Close dialog"`
+- Focus is trapped within the dialog when open
