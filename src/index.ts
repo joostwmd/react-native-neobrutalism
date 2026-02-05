@@ -246,8 +246,39 @@ export type {
   ContextMenuSeparatorProps,
 } from './context-menu';
 
+// Carousel exports
+export {
+  Carousel,
+  CarouselItem,
+  CarouselPrevious,
+  CarouselNext,
+  CarouselIndicators,
+  CarouselContext,
+  useCarouselContext,
+  useCarouselAnimation,
+} from './carousel';
+export type {
+  CarouselProps,
+  CarouselItemProps,
+  CarouselPreviousProps,
+  CarouselNextProps,
+  CarouselIndicatorsProps,
+  CarouselContextValue,
+  CarouselOrientation,
+  UseCarouselAnimationOptions,
+  UseCarouselAnimationReturn,
+} from './carousel';
+
 // Icon exports
-export { CheckIcon, MinusIcon, ChevronDownIcon, XIcon } from './icons';
+export {
+  CheckIcon,
+  MinusIcon,
+  ChevronDownIcon,
+  ChevronLeftIcon,
+  ChevronRightIcon,
+  ChevronUpIcon,
+  XIcon,
+} from './icons';
 export type { IconProps } from './icons';
 
 // Popover exports

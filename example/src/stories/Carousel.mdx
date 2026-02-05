@@ -1,0 +1,356 @@
+import { Meta, Canvas } from '@storybook/addon-docs/blocks';
+import * as CarouselStories from './Carousel.stories';
+
+<Meta of={CarouselStories} />
+
+# Carousel
+
+A neobrutalism-styled carousel component for displaying a series of slides with navigation and indicators. Built with FlatList for native scroll performance.
+
+## Import
+
+```tsx
+import {
+  Carousel,
+  CarouselItem,
+  CarouselPrevious,
+  CarouselNext,
+  CarouselIndicators,
+} from 'react-native-neobrutalism';
+```
+
+## Basic Usage
+
+```tsx
+<Carousel>
+  <CarouselItem>
+    <View style={styles.slide}>
+      <Text>Slide 1</Text>
+    </View>
+  </CarouselItem>
+  <CarouselItem>
+    <View style={styles.slide}>
+      <Text>Slide 2</Text>
+    </View>
+  </CarouselItem>
+  <CarouselPrevious />
+  <CarouselNext />
+  <CarouselIndicators />
+</Carousel>
+```
+
+<Canvas of={CarouselStories.Default} />
+
+## Sub-Components
+
+The Carousel uses a compound component pattern with the following sub-components:
+
+| Component | Description |
+|-----------|-------------|
+| `Carousel` | Main container with FlatList and context provider |
+| `CarouselItem` | Wrapper for individual slides |
+| `CarouselPrevious` | Previous navigation button with chevron icon |
+| `CarouselNext` | Next navigation button with chevron icon |
+| `CarouselIndicators` | Dot indicators showing current position |
+
+## Navigation Only
+
+Using only navigation buttons without indicators:
+
+<Canvas of={CarouselStories.WithNavigationOnly} />
+
+```tsx
+<Carousel>
+  {slides.map((slide, index) => (
+    <CarouselItem key={index}>{slide}</CarouselItem>
+  ))}
+  <CarouselPrevious />
+  <CarouselNext />
+</Carousel>
+```
+
+## Indicators Only
+
+Using only dot indicators without navigation buttons:
+
+<Canvas of={CarouselStories.WithIndicatorsOnly} />
+
+```tsx
+<Carousel>
+  {slides.map((slide, index) => (
+    <CarouselItem key={index}>{slide}</CarouselItem>
+  ))}
+  <CarouselIndicators />
+</Carousel>
+```
+
+## Auto Play
+
+Enable automatic slide advancement:
+
+<Canvas of={CarouselStories.AutoPlay} />
+
+```tsx
+<Carousel autoPlay autoPlayInterval={2000}>
+  {slides.map((slide, index) => (
+    <CarouselItem key={index}>{slide}</CarouselItem>
+  ))}
+  <CarouselIndicators />
+</Carousel>
+```
+
+## Loop Mode
+
+Enable infinite looping through slides:
+
+<Canvas of={CarouselStories.LoopEnabled} />
+
+```tsx
+<Carousel loop>
+  {slides.map((slide, index) => (
+    <CarouselItem key={index}>{slide}</CarouselItem>
+  ))}
+  <CarouselPrevious />
+  <CarouselNext />
+  <CarouselIndicators />
+</Carousel>
+```
+
+## Auto Play with Loop
+
+Combine auto-play with loop for continuous carousel:
+
+<Canvas of={CarouselStories.AutoPlayWithLoop} />
+
+```tsx
+<Carousel autoPlay autoPlayInterval={2000} loop>
+  {slides.map((slide, index) => (
+    <CarouselItem key={index}>{slide}</CarouselItem>
+  ))}
+  <CarouselPrevious />
+  <CarouselNext />
+  <CarouselIndicators />
+</Carousel>
+```
+
+## Controlled Mode
+
+Control the active index externally:
+
+<Canvas of={CarouselStories.Controlled} />
+
+```tsx
+function ControlledCarousel() {
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  return (
+    <Carousel
+      activeIndex={activeIndex}
+      onActiveIndexChange={setActiveIndex}
+    >
+      {slides.map((slide, index) => (
+        <CarouselItem key={index}>{slide}</CarouselItem>
+      ))}
+      <CarouselPrevious />
+      <CarouselNext />
+      <CarouselIndicators />
+    </Carousel>
+  );
+}
+```
+
+## With Images
+
+<Canvas of={CarouselStories.WithImages} />
+
+```tsx
+<Carousel>
+  <CarouselItem>
+    <Image source={{ uri: 'image1.jpg' }} style={styles.image} />
+  </CarouselItem>
+  <CarouselItem>
+    <Image source={{ uri: 'image2.jpg' }} style={styles.image} />
+  </CarouselItem>
+  <CarouselPrevious />
+  <CarouselNext />
+  <CarouselIndicators />
+</Carousel>
+```
+
+## Card Carousel
+
+<Canvas of={CarouselStories.CardCarousel} />
+
+## Vertical Orientation
+
+<Canvas of={CarouselStories.VerticalOrientation} />
+
+```tsx
+<Carousel orientation="vertical" itemSize={200}>
+  {slides.map((slide, index) => (
+    <CarouselItem key={index}>{slide}</CarouselItem>
+  ))}
+  <CarouselPrevious />
+  <CarouselNext />
+  <CarouselIndicators />
+</Carousel>
+```
+
+## Custom Item Size
+
+<Canvas of={CarouselStories.CustomItemSize} />
+
+```tsx
+<Carousel itemSize={300}>
+  {slides.map((slide, index) => (
+    <CarouselItem key={index}>{slide}</CarouselItem>
+  ))}
+  <CarouselPrevious />
+  <CarouselNext />
+</Carousel>
+```
+
+## Custom Theme
+
+<Canvas of={CarouselStories.CustomTheme} />
+
+```tsx
+<NeobrutalismThemeProvider
+  theme={{
+    shadow: { offsetX: 6, offsetY: 6, color: '#333' },
+    border: { radius: 16 },
+    colors: { primary: '#FF6B6B' },
+  }}
+>
+  <Carousel>
+    {slides.map((slide, index) => (
+      <CarouselItem key={index}>{slide}</CarouselItem>
+    ))}
+    <CarouselIndicators />
+  </Carousel>
+</NeobrutalismThemeProvider>
+```
+
+## Without Shadow
+
+<Canvas of={CarouselStories.NoShadow} />
+
+```tsx
+<Carousel shadowStyle={null}>
+  {slides.map((slide, index) => (
+    <CarouselItem key={index}>{slide}</CarouselItem>
+  ))}
+  <CarouselPrevious shadowStyle={null} />
+  <CarouselNext shadowStyle={null} />
+  <CarouselIndicators />
+</Carousel>
+```
+
+## Start at Specific Index
+
+<Canvas of={CarouselStories.StartAtIndex} />
+
+```tsx
+<Carousel defaultActiveIndex={2}>
+  {slides.map((slide, index) => (
+    <CarouselItem key={index}>{slide}</CarouselItem>
+  ))}
+  <CarouselIndicators />
+</Carousel>
+```
+
+## Custom Indicators
+
+<Canvas of={CarouselStories.CustomIndicators} />
+
+```tsx
+<Carousel>
+  {slides.map((slide, index) => (
+    <CarouselItem key={index}>{slide}</CarouselItem>
+  ))}
+  <CarouselIndicators
+    dotStyle={{ width: 12, height: 12, borderRadius: 6 }}
+    activeDotStyle={{ backgroundColor: '#FF6B6B' }}
+  />
+</Carousel>
+```
+
+## Props
+
+### Carousel
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `children` | `ReactNode` | - | Carousel content (items and controls) |
+| `orientation` | `'horizontal' \| 'vertical'` | `'horizontal'` | Scroll direction |
+| `activeIndex` | `number` | - | Controlled active index |
+| `defaultActiveIndex` | `number` | `0` | Initial index for uncontrolled mode |
+| `onActiveIndexChange` | `(index: number) => void` | - | Callback when index changes |
+| `autoPlay` | `boolean` | `false` | Enable automatic advancement |
+| `autoPlayInterval` | `number` | `3000` | Auto-play interval in ms |
+| `loop` | `boolean` | `false` | Enable infinite loop |
+| `itemSize` | `number` | - | Custom item size (width/height) |
+| `itemGap` | `number` | `0` | Gap between items |
+| `style` | `ViewStyle` | - | Container style overrides |
+| `shadowStyle` | `ViewStyle \| null` | - | Shadow style, `null` to hide |
+| `themeOverride` | `NeobrutalismThemeOverride` | - | Component-level theme |
+| `accessibilityLabel` | `string` | - | Accessibility label |
+
+### CarouselItem
+
+| Prop | Type | Description |
+|------|------|-------------|
+| `children` | `ReactNode` | Slide content |
+| `style` | `ViewStyle` | Style overrides |
+
+### CarouselPrevious / CarouselNext
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `children` | `ReactNode` | - | Custom button content |
+| `style` | `ViewStyle` | - | Style overrides |
+| `shadowStyle` | `ViewStyle \| null` | - | Shadow style, `null` to hide |
+| `accessibilityLabel` | `string` | `'Previous/Next slide'` | Accessibility label |
+
+### CarouselIndicators
+
+| Prop | Type | Description |
+|------|------|-------------|
+| `style` | `ViewStyle` | Container style overrides |
+| `dotStyle` | `ViewStyle` | Default dot style |
+| `activeDotStyle` | `ViewStyle` | Active dot style |
+
+## Context Hook
+
+Use `useCarouselContext` to access carousel state in custom components:
+
+```tsx
+import { useCarouselContext } from 'react-native-neobrutalism';
+
+function CustomControl() {
+  const {
+    activeIndex,
+    itemCount,
+    goToIndex,
+    goToPrevious,
+    goToNext,
+    canScrollPrev,
+    canScrollNext,
+    orientation,
+    loop,
+  } = useCarouselContext();
+
+  return (
+    <Text>
+      Slide {activeIndex + 1} of {itemCount}
+    </Text>
+  );
+}
+```
+
+## Accessibility
+
+- Navigation buttons include appropriate `accessibilityRole="button"` and `accessibilityState`
+- Disabled navigation buttons are marked with `disabled` accessibility state
+- Indicators support `accessibilityLabel` for each dot
+- Use `accessibilityLabel` on Carousel for screen reader context

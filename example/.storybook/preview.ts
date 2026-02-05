@@ -1,4 +1,10 @@
 import type { Preview } from '@storybook/react-native-web-vite';
+import { Buffer } from 'buffer';
+
+// Polyfill Buffer for react-native-svg
+if (typeof window !== 'undefined') {
+  (window as unknown as { Buffer: typeof Buffer }).Buffer = Buffer;
+}
 
 const preview: Preview = {
   parameters: {

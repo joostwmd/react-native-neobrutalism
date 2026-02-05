@@ -1,12 +1,15 @@
 import type { StorybookConfig } from '@storybook/react-native-web-vite';
 import { mergeConfig } from 'vite';
-import { dirname } from 'path';
+import { dirname, join } from 'path';
 import { fileURLToPath } from 'url';
 import remarkGfm from 'remark-gfm';
+import inject from '@rollup/plugin-inject';
 
 function getAbsolutePath(value: string): string {
   return dirname(fileURLToPath(import.meta.resolve(`${value}/package.json`)));
 }
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
 const config: StorybookConfig = {
   stories: [
@@ -46,10 +49,19 @@ const config: StorybookConfig = {
 
   async viteFinal(config) {
     return mergeConfig(config, {
+      plugins: [
+        // Inject Buffer for react-native-svg
+        inject({
+          Buffer: ['buffer', 'Buffer'],
+        }),
+      ],
+
       resolve: {
         alias: {
           // runtime resolution
           'react-native': 'react-native-web',
+          // Point buffer to the npm package
+          buffer: join(__dirname, '../node_modules/buffer/index.js'),
         },
       },
 
@@ -57,6 +69,20 @@ const config: StorybookConfig = {
         // pre-bundling resolution (THIS was missing)
         alias: {
           'react-native': 'react-native-web',
+        },
+        include: ['buffer'],
+        esbuildOptions: {
+          // Node.js buffer needs to be made available
+          define: {
+            global: 'globalThis',
+          },
+        },
+      },
+
+      build: {
+        commonjsOptions: {
+          // Ensure buffer is transformed properly
+          transformMixedEsModules: true,
         },
       },
     });
