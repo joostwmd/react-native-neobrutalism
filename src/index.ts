@@ -172,6 +172,14 @@ export type {
 export { Input, FileInput } from './input';
 export type { InputProps, FileInputProps } from './input';
 
+// Progress exports
+export { Progress, useProgressAnimation } from './progress';
+export type {
+  ProgressProps,
+  ProgressVariant,
+  ProgressDirection,
+} from './progress';
+
 // Checkbox exports
 export { Checkbox, useCheckboxAnimation } from './checkbox';
 export type {
