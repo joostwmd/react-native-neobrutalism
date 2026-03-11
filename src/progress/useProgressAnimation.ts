@@ -21,7 +21,7 @@ const DEFAULT_DURATION = 300;
  * @example
  * ```tsx
  * const { fillStyle } = useProgressAnimation({
- *   value: 50,
+ *   value: percentage, // 0-100
  *   indeterminate: false,
  *   duration: 300,
  * });

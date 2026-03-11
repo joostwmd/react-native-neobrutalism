@@ -1,4 +1,4 @@
-import type { ViewStyle } from 'react-native';
+import type { ViewStyle, StyleProp } from 'react-native';
 import type { NeobrutalismThemeOverride } from '../theme/types';
 
 export type ProgressVariant =
@@ -17,7 +17,7 @@ export interface UseProgressAnimationOptions {
 }
 
 export interface UseProgressAnimationReturn {
-  fillStyle: object; // StyleProp<ViewStyle> from useAnimatedStyle
+  fillStyle: StyleProp<ViewStyle>;
 }
 
 export interface ProgressProps {

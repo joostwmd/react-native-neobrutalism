@@ -49,6 +49,10 @@ const meta: Meta<typeof Progress> = {
       control: 'boolean',
       description: 'Show indeterminate animation',
     },
+    duration: {
+      control: { type: 'number', min: 50, max: 2000, step: 50 },
+      description: 'Animation duration in milliseconds',
+    },
   },
 };
 

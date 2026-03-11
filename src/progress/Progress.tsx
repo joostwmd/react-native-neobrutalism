@@ -117,8 +117,7 @@ export function Progress({
       isFull,
       isEmpty,
       innerRadius,
-      theme.border.width,
-      theme.border.color,
+      theme.border,
     ]
   );
 
