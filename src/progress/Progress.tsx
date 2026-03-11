@@ -29,6 +29,7 @@ const variantColorMap: Record<ProgressVariant, keyof NeobrutalismColors> = {
  */
 export function Progress({
   value = 0,
+  max = 100,
   variant = 'primary',
   direction = 'left-to-right',
   indeterminate = false,
@@ -53,7 +54,9 @@ export function Progress({
   // });
 
   const fillColor = theme.colors[variantColorMap[variant]];
-  const fillWidth = indeterminate ? 100 : Math.min(100, Math.max(0, value));
+  const percentage =
+    max <= 0 ? 0 : Math.min(100, Math.max(0, (value / max) * 100));
+  const fillWidth = indeterminate ? 100 : percentage;
   const isFull = fillWidth >= 99.99;
   const isEmpty = fillWidth <= 0.01;
 

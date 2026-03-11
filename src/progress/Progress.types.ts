@@ -21,8 +21,10 @@ export interface UseProgressAnimationReturn {
 }
 
 export interface ProgressProps {
-  /** 0–100, required for determinate mode */
+  /** Current progress (0 to max) */
   value?: number;
+  /** Maximum value representing 100% */
+  max?: number;
   /** Visual variant (fill color) */
   variant?: ProgressVariant;
   /** Fill direction: left-to-right (default) or right-to-left */
