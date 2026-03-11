@@ -2,12 +2,12 @@ import { useMemo } from 'react';
 import type { JSX } from 'react';
 import { View } from 'react-native';
 import type { ViewStyle } from 'react-native';
-// import Animated from 'react-native-reanimated';
+import Animated from 'react-native-reanimated';
 import { useNeobrutalismTheme } from '../theme/useNeobrutalismTheme';
 import { deepMerge } from '../utils/mergeStyles';
 import type { ProgressProps, ProgressVariant } from './Progress.types';
 import type { NeobrutalismTheme, NeobrutalismColors } from '../theme/types';
-// import { useProgressAnimation } from './useProgressAnimation';
+import { useProgressAnimation } from './useProgressAnimation';
 
 const variantColorMap: Record<ProgressVariant, keyof NeobrutalismColors> = {
   primary: 'primary',
@@ -33,7 +33,7 @@ export function Progress({
   variant = 'primary',
   direction = 'left-to-right',
   indeterminate = false,
-  duration: _duration,
+  duration,
   style,
   themeOverride,
   accessibilityLabel,
@@ -45,20 +45,17 @@ export function Progress({
     [contextTheme, themeOverride]
   );
 
-  // Animation temporarily disabled for debugging
-  // const animDuration = duration ?? theme.animation.duration;
-  // const { fillStyle } = useProgressAnimation({
-  //   value,
-  //   indeterminate,
-  //   duration: animDuration,
-  // });
-
+  const animDuration = duration ?? theme.animation.duration;
   const fillColor = theme.colors[variantColorMap[variant]];
   const percentage =
     max <= 0 ? 0 : Math.min(100, Math.max(0, (value / max) * 100));
-  const fillWidth = indeterminate ? 100 : percentage;
-  const isFull = fillWidth >= 99.99;
-  const isEmpty = fillWidth <= 0.01;
+  const { fillStyle } = useProgressAnimation({
+    value: percentage,
+    indeterminate,
+    duration: animDuration,
+  });
+  const isFull = percentage >= 99.99;
+  const isEmpty = percentage <= 0.01;
 
   const innerRadius = Math.max(0, theme.border.radius - theme.border.width);
 
@@ -89,9 +86,8 @@ export function Progress({
   );
 
   const isRightToLeft = direction === 'right-to-left';
-  const fillBaseStyle: ViewStyle = useMemo(
+  const fillStaticStyle: ViewStyle = useMemo(
     () => ({
-      width: `${fillWidth}%`,
       position: 'absolute' as const,
       left: isRightToLeft ? undefined : 0,
       right: isRightToLeft ? 0 : undefined,
@@ -116,7 +112,6 @@ export function Progress({
       borderLeftColor: theme.border.color,
     }),
     [
-      fillWidth,
       fillColor,
       isRightToLeft,
       isFull,
@@ -133,7 +128,7 @@ export function Progress({
       accessibilityLabel={accessibilityLabel}
     >
       <View style={fillContainerStyle}>
-        {!isEmpty && <View style={fillBaseStyle} />}
+        <Animated.View style={[fillStyle, fillStaticStyle]} />
       </View>
     </View>
   );
