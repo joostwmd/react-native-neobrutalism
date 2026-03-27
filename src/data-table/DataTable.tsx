@@ -1,6 +1,10 @@
 import { useState, useMemo } from 'react';
 import type { JSX } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
+import { useNeobrutalismTheme } from '../theme/useNeobrutalismTheme';
+import { themeFontStyle } from '../theme/themeFontStyle';
+import { deepMerge } from '../utils/mergeStyles';
+import type { NeobrutalismTheme } from '../theme/types';
 import {
   useReactTable,
   getCoreRowModel,
@@ -85,6 +89,22 @@ export function DataTable<TData>({
     useState<VisibilityState>({});
   const [internalRowSelection, setInternalRowSelection] =
     useState<RowSelectionState>({});
+
+  const { theme: contextTheme } = useNeobrutalismTheme();
+  const theme: NeobrutalismTheme = useMemo(
+    () =>
+      themeOverride ? deepMerge(contextTheme, themeOverride) : contextTheme,
+    [contextTheme, themeOverride]
+  );
+
+  const emptyTextStyle = useMemo(
+    () => [themeFontStyle(theme), styles.emptyText],
+    [theme]
+  );
+  const selectionTextStyle = useMemo(
+    () => [themeFontStyle(theme), styles.selectionText],
+    [theme]
+  );
 
   // Determine controlled vs uncontrolled state
   const sorting = controlledSorting ?? internalSorting;
@@ -229,7 +249,7 @@ export function DataTable<TData>({
                   renderEmpty()
                 ) : (
                   <View style={styles.emptyContainer}>
-                    <Text style={styles.emptyText}>No results.</Text>
+                    <Text style={emptyTextStyle}>No results.</Text>
                   </View>
                 )}
               </TableCell>
@@ -246,7 +266,7 @@ export function DataTable<TData>({
       {/* Selection count */}
       {enableRowSelection && Object.keys(rowSelection).length > 0 && (
         <View style={styles.selectionInfo}>
-          <Text style={styles.selectionText}>
+          <Text style={selectionTextStyle}>
             {Object.keys(rowSelection).length} of{' '}
             {table.getFilteredRowModel().rows.length} row(s) selected.
           </Text>

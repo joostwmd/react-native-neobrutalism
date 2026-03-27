@@ -10,6 +10,7 @@ import type {
 
 type FocusEvent = NativeSyntheticEvent<TargetedEvent>;
 import { useNeobrutalismTheme } from '../theme/useNeobrutalismTheme';
+import { themeFontStyle } from '../theme/themeFontStyle';
 import { deepMerge } from '../utils/mergeStyles';
 import type { InputProps } from './Input.types';
 import type { NeobrutalismTheme } from '../theme/types';
@@ -94,6 +95,7 @@ export function Input({
   // Text input styles
   const computedInputStyle: TextStyle = useMemo(
     () => ({
+      ...themeFontStyle(theme),
       flex: 1,
       paddingHorizontal: theme.spacing.md,
       paddingVertical: theme.spacing.sm,

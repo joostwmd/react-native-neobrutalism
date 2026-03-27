@@ -4,6 +4,7 @@ import { Pressable, Text, View, StyleSheet } from 'react-native';
 import type { ViewStyle, TextStyle } from 'react-native';
 import Animated from 'react-native-reanimated';
 import { useNeobrutalismTheme } from '../theme/useNeobrutalismTheme';
+import { themeFontStyle } from '../theme/themeFontStyle';
 import { useCheckboxAnimation } from './useCheckboxAnimation';
 import { deepMerge } from '../utils/mergeStyles';
 import { CheckIcon } from '../icons/CheckIcon';
@@ -114,6 +115,7 @@ export function Checkbox({
   // Label text styles
   const computedLabelStyle: TextStyle = useMemo(
     () => ({
+      ...themeFontStyle(theme),
       fontSize: size === 'small' ? 14 : size === 'large' ? 18 : 16,
       color: theme.colors.foreground,
       opacity: disabled ? 0.5 : 1,

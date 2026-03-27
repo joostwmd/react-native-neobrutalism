@@ -5,6 +5,7 @@ import type { ViewStyle, TextStyle } from 'react-native';
 import { Popover, PopoverTrigger, PopoverContent } from '../popover';
 import { Calendar } from '../calendar';
 import { useNeobrutalismTheme } from '../theme/useNeobrutalismTheme';
+import { themeFontStyle } from '../theme/themeFontStyle';
 import { deepMerge } from '../utils/mergeStyles';
 import type { NeobrutalismTheme } from '../theme/types';
 import type { DatePickerProps } from './DatePicker.types';
@@ -90,12 +91,13 @@ export function DatePicker({
   // Trigger text styles
   const computedTriggerTextStyle: TextStyle = useMemo(
     () => ({
+      ...themeFontStyle(theme),
       color: selectedDate
         ? theme.colors.foreground
         : theme.colors.secondaryForeground,
       textAlign: 'left',
     }),
-    [selectedDate, theme.colors.foreground, theme.colors.secondaryForeground]
+    [selectedDate, theme]
   );
 
   // Calendar icon
@@ -103,13 +105,17 @@ export function DatePicker({
     () => (
       <View style={styles.iconContainer}>
         <Text
-          style={[styles.icon, { color: theme.colors.secondaryForeground }]}
+          style={[
+            themeFontStyle(theme),
+            styles.icon,
+            { color: theme.colors.secondaryForeground },
+          ]}
         >
           📅
         </Text>
       </View>
     ),
-    [theme.colors.secondaryForeground]
+    [theme]
   );
 
   // Popover content style

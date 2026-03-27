@@ -3,6 +3,7 @@ import type { JSX } from 'react';
 import { View, Text } from 'react-native';
 import type { ViewStyle, TextStyle } from 'react-native';
 import { useNeobrutalismTheme } from '../theme/useNeobrutalismTheme';
+import { themeFontStyle } from '../theme/themeFontStyle';
 import { deepMerge } from '../utils/mergeStyles';
 import { useDropdownMenuContext } from './DropdownMenuContext';
 import type { DropdownMenuLabelProps } from './DropdownMenu.types';
@@ -48,6 +49,7 @@ export function DropdownMenuLabel({
   // Label styles
   const labelStyle: TextStyle = useMemo(
     () => ({
+      ...themeFontStyle(theme),
       fontSize: 12,
       fontWeight: '600',
       color: theme.colors.primaryForeground,

@@ -4,6 +4,7 @@ import { View, Text, StyleSheet } from 'react-native';
 import type { ViewStyle } from 'react-native';
 import { Button } from '../buttons';
 import { useNeobrutalismTheme } from '../theme/useNeobrutalismTheme';
+import { themeFontStyle } from '../theme/themeFontStyle';
 import type { DataTablePaginationProps } from './DataTable.types';
 
 /**
@@ -42,11 +43,20 @@ export function DataTablePagination<TData>({
     [theme.spacing]
   );
 
+  const labelStyle = useMemo(
+    () => [themeFontStyle(theme), styles.label],
+    [theme]
+  );
+  const pageInfoStyle = useMemo(
+    () => [themeFontStyle(theme), styles.pageInfo],
+    [theme]
+  );
+
   return (
     <View style={[containerStyle, style]}>
       {/* Page size selector */}
       <View style={styles.pageSizeContainer}>
-        <Text style={styles.label}>Rows per page:</Text>
+        <Text style={labelStyle}>Rows per page:</Text>
         <View style={styles.pageSizeButtons}>
           {pageSizeOptions.map((size) => (
             <Button
@@ -62,7 +72,7 @@ export function DataTablePagination<TData>({
       </View>
 
       {/* Page info */}
-      <Text style={styles.pageInfo}>
+      <Text style={pageInfoStyle}>
         Page {pageIndex + 1} of {pageCount || 1}
       </Text>
 

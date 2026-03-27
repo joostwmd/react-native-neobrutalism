@@ -3,6 +3,7 @@ import type { JSX } from 'react';
 import { View, Text } from 'react-native';
 import type { ViewStyle, TextStyle } from 'react-native';
 import { useNeobrutalismTheme } from '../theme/useNeobrutalismTheme';
+import { themeFontStyle } from '../theme/themeFontStyle';
 import { deepMerge } from '../utils/mergeStyles';
 import { useContextMenuContext } from './ContextMenuContext';
 import type { ContextMenuLabelProps } from './ContextMenu.types';
@@ -46,6 +47,7 @@ export function ContextMenuLabel({
   // Text styles
   const labelStyle: TextStyle = useMemo(
     () => ({
+      ...themeFontStyle(theme),
       fontSize: 12,
       fontWeight: '600',
       color: theme.colors.primaryForeground,

@@ -3,6 +3,7 @@ import type { JSX } from 'react';
 import { Text } from 'react-native';
 import type { TextStyle } from 'react-native';
 import { useNeobrutalismTheme } from '../theme/useNeobrutalismTheme';
+import { themeFontStyle } from '../theme/themeFontStyle';
 import { deepMerge } from '../utils/mergeStyles';
 import { useDialogContext } from './DialogContext';
 import type { DialogTitleProps } from './Dialog.types';
@@ -31,6 +32,7 @@ export function DialogTitle({
 
   const titleStyle: TextStyle = useMemo(
     () => ({
+      ...themeFontStyle(theme),
       fontSize: 18,
       fontWeight: '700',
       color: theme.colors.foreground,

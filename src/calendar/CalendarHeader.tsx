@@ -10,7 +10,7 @@ import {
   type TextStyle,
 } from 'react-native';
 import { useCalendarContext } from './CalendarContext';
-import { useNeobrutalismTheme } from '../theme';
+import { useNeobrutalismTheme, themeFontStyle } from '../theme';
 import { deepMerge } from '../utils';
 import type { NeobrutalismTheme } from '../theme/types';
 import type { CalendarHeaderProps } from './Calendar.types';
@@ -62,11 +62,12 @@ export function CalendarHeader({
 
   const titleStyle: TextStyle = useMemo(
     () => ({
+      ...themeFontStyle(theme),
       fontSize: 16,
       fontWeight: '700',
       color: theme.colors.foreground,
     }),
-    [theme.colors.foreground]
+    [theme]
   );
 
   return (
@@ -166,6 +167,11 @@ function NavButton({
 
   const chevron = direction === 'left' ? '<' : '>';
 
+  const chevronTextStyle = useMemo(
+    () => [themeFontStyle(theme), styles.chevronText],
+    [theme]
+  );
+
   return (
     <View style={styles.navButtonWrapper}>
       <View style={shadowStyle} />
@@ -182,7 +188,7 @@ function NavButton({
           accessibilityRole="button"
           accessibilityLabel={accessibilityLabel}
         >
-          <Text style={styles.chevronText}>{chevron}</Text>
+          <Text style={chevronTextStyle}>{chevron}</Text>
         </Pressable>
       </Animated.View>
     </View>

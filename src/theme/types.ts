@@ -110,6 +110,11 @@ export interface NeobrutalismTheme {
   spacing: NeobrutalismSpacing;
   buttonSizes: NeobrutalismButtonSizes;
   animation: NeobrutalismAnimation;
+  /**
+   * When set (e.g. after loading a custom font with expo-font), all library
+   * text uses this `fontFamily`. Omit to use the platform default.
+   */
+  fontFamily?: string;
 }
 
 /**

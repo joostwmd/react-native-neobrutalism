@@ -3,6 +3,7 @@ import type { JSX } from 'react';
 import { Text } from 'react-native';
 import type { TextStyle } from 'react-native';
 import { useNeobrutalismTheme } from '../theme/useNeobrutalismTheme';
+import { themeFontStyle } from '../theme/themeFontStyle';
 import { deepMerge } from '../utils/mergeStyles';
 import { useDialogContext } from './DialogContext';
 import type { DialogDescriptionProps } from './Dialog.types';
@@ -33,6 +34,7 @@ export function DialogDescription({
 
   const descriptionStyle: TextStyle = useMemo(
     () => ({
+      ...themeFontStyle(theme),
       fontSize: 14,
       color: theme.colors.secondaryForeground,
       lineHeight: 20,

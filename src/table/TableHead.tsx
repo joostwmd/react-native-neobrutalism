@@ -3,6 +3,7 @@ import type { JSX } from 'react';
 import { Pressable, View, Text } from 'react-native';
 import type { ViewStyle, TextStyle } from 'react-native';
 import { useNeobrutalismTheme } from '../theme/useNeobrutalismTheme';
+import { themeFontStyle } from '../theme/themeFontStyle';
 import { deepMerge } from '../utils/mergeStyles';
 import { useTableContext } from './TableContext';
 import type { TableHeadProps } from './Table.types';
@@ -67,6 +68,7 @@ export function TableHead({
   // Text styles
   const computedTextStyle: TextStyle = useMemo(
     () => ({
+      ...themeFontStyle(theme),
       fontSize: 14,
       fontWeight: '600',
       color: theme.colors.foreground,

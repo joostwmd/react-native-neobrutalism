@@ -3,6 +3,7 @@ import type { JSX } from 'react';
 import { View, Text } from 'react-native';
 import type { ViewStyle, TextStyle } from 'react-native';
 import { useNeobrutalismTheme } from '../theme/useNeobrutalismTheme';
+import { themeFontStyle } from '../theme/themeFontStyle';
 import { deepMerge } from '../utils/mergeStyles';
 import { useTableContext } from './TableContext';
 import type { TableCellProps } from './Table.types';
@@ -61,6 +62,7 @@ export function TableCell({
   // Text styles
   const computedTextStyle: TextStyle = useMemo(
     () => ({
+      ...themeFontStyle(theme),
       fontSize: 14,
       color: theme.colors.foreground,
     }),

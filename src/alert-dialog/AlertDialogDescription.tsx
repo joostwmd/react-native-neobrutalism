@@ -3,6 +3,7 @@ import type { JSX } from 'react';
 import { Text } from 'react-native';
 import type { TextStyle } from 'react-native';
 import { useNeobrutalismTheme } from '../theme/useNeobrutalismTheme';
+import { themeFontStyle } from '../theme/themeFontStyle';
 import { deepMerge } from '../utils/mergeStyles';
 import { useAlertDialogContext } from './AlertDialogContext';
 import type { AlertDialogDescriptionProps } from './AlertDialog.types';
@@ -34,6 +35,7 @@ export function AlertDialogDescription({
 
   const textStyle: TextStyle = useMemo(
     () => ({
+      ...themeFontStyle(theme),
       color: theme.colors.foreground,
       fontSize: 14,
       lineHeight: 20,

@@ -3,6 +3,7 @@ import type { JSX } from 'react';
 import { Pressable, Text, View } from 'react-native';
 import type { ViewStyle, TextStyle } from 'react-native';
 import { useNeobrutalismTheme } from '../theme/useNeobrutalismTheme';
+import { themeFontStyle } from '../theme/themeFontStyle';
 import {
   DropdownMenu,
   DropdownMenuTrigger,
@@ -51,16 +52,32 @@ export function DataTableColumnHeader({
   // Text styles
   const computedTextStyle: TextStyle = useMemo(
     () => ({
+      ...themeFontStyle(theme),
       fontSize: 14,
       fontWeight: '600',
       color: theme.colors.foreground,
     }),
-    [theme.colors.foreground]
+    [theme]
   );
+
+  const sortIndicatorStyle = useMemo(
+    () => [themeFontStyle(theme), { color: theme.colors.foreground }],
+    [theme]
+  );
+
+  const menuChevronStyle = useMemo(
+    () => [
+      themeFontStyle(theme),
+      { color: theme.colors.secondaryForeground, fontSize: 10 },
+    ],
+    [theme]
+  );
+
+  const menuIconStyle = useMemo(() => themeFontStyle(theme), [theme]);
 
   // Sort indicator
   const sortIndicator = isSorted && (
-    <Text style={{ color: theme.colors.foreground }}>
+    <Text style={sortIndicatorStyle}>
       {isSorted === 'asc' ? '↑' : '↓'}
     </Text>
   );
@@ -96,11 +113,7 @@ export function DataTableColumnHeader({
         <View style={[containerStyle, style]}>
           <Text style={[computedTextStyle, textStyle]}>{title}</Text>
           {sortIndicator}
-          <Text
-            style={{ color: theme.colors.secondaryForeground, fontSize: 10 }}
-          >
-            ▼
-          </Text>
+          <Text style={menuChevronStyle}>▼</Text>
         </View>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="start">
@@ -109,12 +122,12 @@ export function DataTableColumnHeader({
             <DropdownMenuItem
               label="Sort Ascending"
               onPress={() => column.toggleSorting(false)}
-              icon={<Text>↑</Text>}
+              icon={<Text style={menuIconStyle}>↑</Text>}
             />
             <DropdownMenuItem
               label="Sort Descending"
               onPress={() => column.toggleSorting(true)}
-              icon={<Text>↓</Text>}
+              icon={<Text style={menuIconStyle}>↓</Text>}
             />
           </>
         )}

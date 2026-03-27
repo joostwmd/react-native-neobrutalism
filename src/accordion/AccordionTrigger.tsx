@@ -4,6 +4,7 @@ import { Pressable, Text, View, StyleSheet } from 'react-native';
 import type { ViewStyle, TextStyle } from 'react-native';
 import Animated from 'react-native-reanimated';
 import { useNeobrutalismTheme } from '../theme/useNeobrutalismTheme';
+import { themeFontStyle } from '../theme/themeFontStyle';
 import { deepMerge } from '../utils/mergeStyles';
 import {
   useAccordionContext,
@@ -16,8 +17,16 @@ import type { NeobrutalismTheme } from '../theme/types';
 /**
  * Default chevron icon component
  */
-function ChevronIcon({ color }: { color: string }): JSX.Element {
-  return <Text style={[styles.chevronText, { color }]}>▼</Text>;
+function ChevronIcon({
+  color,
+  theme,
+}: {
+  color: string;
+  theme: NeobrutalismTheme;
+}): JSX.Element {
+  return (
+    <Text style={[themeFontStyle(theme), styles.chevronText, { color }]}>▼</Text>
+  );
 }
 
 /**
@@ -72,12 +81,13 @@ export function AccordionTrigger({
   // Text styles
   const computedTextStyle: TextStyle = useMemo(
     () => ({
+      ...themeFontStyle(theme),
       color: disabled ? '#888888' : theme.colors.primaryForeground,
       fontSize: 16,
       fontWeight: '600',
       flex: 1,
     }),
-    [theme.colors.primaryForeground, disabled]
+    [theme, theme.colors.primaryForeground, disabled]
   );
 
   const chevronColor = disabled ? '#888888' : theme.colors.primaryForeground;
@@ -111,7 +121,7 @@ export function AccordionTrigger({
         // @ts-expect-error - Reanimated types cause deep instantiation
         // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
         <Animated.View style={chevronAnimatedStyle}>
-          {chevronIcon ?? <ChevronIcon color={chevronColor} />}
+          {chevronIcon ?? <ChevronIcon color={chevronColor} theme={theme} />}
         </Animated.View>
       )}
     </Pressable>

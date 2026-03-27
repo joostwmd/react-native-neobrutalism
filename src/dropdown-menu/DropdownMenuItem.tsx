@@ -3,6 +3,7 @@ import type { JSX } from 'react';
 import { Pressable, Text, View } from 'react-native';
 import type { ViewStyle, TextStyle } from 'react-native';
 import { useNeobrutalismTheme } from '../theme/useNeobrutalismTheme';
+import { themeFontStyle } from '../theme/themeFontStyle';
 import { deepMerge } from '../utils/mergeStyles';
 import { useDropdownMenuContext } from './DropdownMenuContext';
 import type { DropdownMenuItemProps } from './DropdownMenu.types';
@@ -80,6 +81,7 @@ export function DropdownMenuItem({
   // Label styles
   const labelStyle: TextStyle = useMemo(
     () => ({
+      ...themeFontStyle(theme),
       flex: 1,
       fontSize: 14,
       fontWeight: '500',
@@ -91,6 +93,7 @@ export function DropdownMenuItem({
   // Shortcut styles
   const shortcutTextStyle: TextStyle = useMemo(
     () => ({
+      ...themeFontStyle(theme),
       fontSize: 12,
       color: textColor,
       opacity: 0.7,

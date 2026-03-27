@@ -3,6 +3,7 @@ import type { JSX } from 'react';
 import { View, Text } from 'react-native';
 import type { TextStyle } from 'react-native';
 import { useNeobrutalismTheme } from '../theme/useNeobrutalismTheme';
+import { themeFontStyle } from '../theme/themeFontStyle';
 import { deepMerge } from '../utils/mergeStyles';
 import { useBreadcrumbContext } from './BreadcrumbContext';
 import type { BreadcrumbSeparatorProps } from './Breadcrumb.types';
@@ -36,6 +37,7 @@ export function BreadcrumbSeparator({
   // Separator text styles
   const separatorStyle: TextStyle = useMemo(
     () => ({
+      ...themeFontStyle(theme),
       fontSize: 14,
       color: theme.colors.foreground,
       opacity: 0.5,

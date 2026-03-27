@@ -3,6 +3,7 @@ import type { JSX } from 'react';
 import { View, Text } from 'react-native';
 import type { ViewStyle, TextStyle } from 'react-native';
 import { useNeobrutalismTheme } from '../theme/useNeobrutalismTheme';
+import { themeFontStyle } from '../theme/themeFontStyle';
 import { deepMerge } from '../utils/mergeStyles';
 import { useComboboxContext } from './ComboboxContext';
 import type { ComboboxEmptyProps } from './Combobox.types';
@@ -60,6 +61,7 @@ export function ComboboxEmpty({
   // Text styles
   const computedTextStyle: TextStyle = useMemo(
     () => ({
+      ...themeFontStyle(theme),
       fontSize: 14,
       color: theme.colors.foreground,
       opacity: 0.6,

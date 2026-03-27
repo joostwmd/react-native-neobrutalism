@@ -3,6 +3,7 @@ import type { JSX } from 'react';
 import { Pressable, Text, View, StyleSheet } from 'react-native';
 import type { ViewStyle, TextStyle } from 'react-native';
 import { useNeobrutalismTheme } from '../theme/useNeobrutalismTheme';
+import { themeFontStyle } from '../theme/themeFontStyle';
 import { deepMerge } from '../utils/mergeStyles';
 import { useComboboxContext } from './ComboboxContext';
 import { CheckIcon } from '../icons/CheckIcon';
@@ -99,6 +100,7 @@ export function ComboboxItem({
   // Text styles
   const computedTextStyle: TextStyle = useMemo(
     () => ({
+      ...themeFontStyle(theme),
       flex: 1,
       fontSize: 16,
       color: theme.colors.foreground,

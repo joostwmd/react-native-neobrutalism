@@ -3,6 +3,7 @@ import type { JSX } from 'react';
 import { Pressable, Text, View } from 'react-native';
 import type { ViewStyle, TextStyle } from 'react-native';
 import { useNeobrutalismTheme } from '../theme/useNeobrutalismTheme';
+import { themeFontStyle } from '../theme/themeFontStyle';
 import { deepMerge } from '../utils/mergeStyles';
 import { useDialogContext } from './DialogContext';
 import type { DialogCloseProps } from './Dialog.types';
@@ -62,6 +63,7 @@ export function DialogClose({
 
   const iconStyle: TextStyle = useMemo(
     () => ({
+      ...themeFontStyle(theme),
       fontSize: 16,
       fontWeight: '700',
       color: theme.colors.foreground,

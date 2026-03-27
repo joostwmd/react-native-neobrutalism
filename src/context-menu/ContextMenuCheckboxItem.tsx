@@ -3,6 +3,7 @@ import type { JSX } from 'react';
 import { Pressable, Text, View } from 'react-native';
 import type { ViewStyle, TextStyle } from 'react-native';
 import { useNeobrutalismTheme } from '../theme/useNeobrutalismTheme';
+import { themeFontStyle } from '../theme/themeFontStyle';
 import { deepMerge } from '../utils/mergeStyles';
 import { useContextMenuContext } from './ContextMenuContext';
 import type { ContextMenuCheckboxItemProps } from './ContextMenu.types';
@@ -85,6 +86,7 @@ export function ContextMenuCheckboxItem({
   // Checkmark text
   const checkmarkStyle: TextStyle = useMemo(
     () => ({
+      ...themeFontStyle(theme),
       fontSize: 12,
       fontWeight: '700',
       color: theme.colors.primaryForeground,
@@ -95,6 +97,7 @@ export function ContextMenuCheckboxItem({
   // Label styles
   const labelStyle: TextStyle = useMemo(
     () => ({
+      ...themeFontStyle(theme),
       flex: 1,
       fontSize: 14,
       fontWeight: '500',
@@ -106,6 +109,7 @@ export function ContextMenuCheckboxItem({
   // Shortcut styles
   const shortcutStyle: TextStyle = useMemo(
     () => ({
+      ...themeFontStyle(theme),
       fontSize: 12,
       color: theme.colors.primaryForeground,
       opacity: 0.7,

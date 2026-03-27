@@ -3,6 +3,7 @@ export {
   NeobrutalismThemeProvider,
   NeobrutalismThemeContext,
   useNeobrutalismTheme,
+  themeFontStyle,
   defaultTheme,
 } from './theme';
 export type {

@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import { CalendarDay } from './CalendarDay';
 import { useCalendarContext } from './CalendarContext';
-import { useNeobrutalismTheme } from '../theme';
+import { useNeobrutalismTheme, themeFontStyle } from '../theme';
 import { deepMerge } from '../utils';
 import type { NeobrutalismTheme } from '../theme/types';
 import type { CalendarGridProps } from './Calendar.types';
@@ -47,6 +47,7 @@ export function CalendarGrid({
 
   const weekdayTextStyle: TextStyle = useMemo(
     () => ({
+      ...themeFontStyle(theme),
       fontSize: 12,
       fontWeight: '600',
       color: theme.colors.foreground,

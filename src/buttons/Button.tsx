@@ -3,6 +3,7 @@ import type { JSX } from 'react';
 import { Pressable, Text, View, Animated, StyleSheet } from 'react-native';
 import type { ViewStyle, TextStyle } from 'react-native';
 import { useNeobrutalismTheme } from '../theme/useNeobrutalismTheme';
+import { themeFontStyle } from '../theme/themeFontStyle';
 import { useButtonAnimation } from './useButtonAnimation';
 import { deepMerge } from '../utils/mergeStyles';
 import type { ButtonProps, ButtonVariant } from './Button.types';
@@ -133,6 +134,7 @@ export function Button({
   // Text styles
   const computedTextStyle: TextStyle = useMemo(
     () => ({
+      ...themeFontStyle(theme),
       fontSize: buttonSize.fontSize,
       fontWeight: '600',
       color: textColor,

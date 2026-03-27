@@ -4,6 +4,7 @@ import { Pressable, Text, View, StyleSheet } from 'react-native';
 import type { ViewStyle, TextStyle } from 'react-native';
 import Animated from 'react-native-reanimated';
 import { useNeobrutalismTheme } from '../theme/useNeobrutalismTheme';
+import { themeFontStyle } from '../theme/themeFontStyle';
 import { deepMerge } from '../utils/mergeStyles';
 import { useCollapsibleContext } from './CollapsibleContext';
 import { useCollapsibleAnimation } from './useCollapsibleAnimation';
@@ -79,6 +80,7 @@ export function CollapsibleTrigger({
   // Text styles
   const computedTextStyle: TextStyle = useMemo(
     () => ({
+      ...themeFontStyle(theme),
       fontSize: 16,
       fontWeight: '600',
       color: theme.colors.foreground,

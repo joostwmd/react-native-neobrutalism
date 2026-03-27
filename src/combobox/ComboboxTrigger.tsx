@@ -3,6 +3,7 @@ import type { JSX } from 'react';
 import { Pressable, Text, View, Animated, StyleSheet } from 'react-native';
 import type { ViewStyle, TextStyle } from 'react-native';
 import { useNeobrutalismTheme } from '../theme/useNeobrutalismTheme';
+import { themeFontStyle } from '../theme/themeFontStyle';
 import { useButtonAnimation } from '../buttons/useButtonAnimation';
 import { deepMerge } from '../utils/mergeStyles';
 import { useComboboxContext } from './ComboboxContext';
@@ -141,6 +142,7 @@ export function ComboboxTrigger({
   // Text styles
   const labelStyle: TextStyle = useMemo(
     () => ({
+      ...themeFontStyle(theme),
       flex: 1,
       fontSize: 16,
       color: theme.colors.foreground,

@@ -3,6 +3,7 @@ import type { JSX } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import type { ViewStyle, TextStyle } from 'react-native';
 import { useNeobrutalismTheme } from '../theme/useNeobrutalismTheme';
+import { themeFontStyle } from '../theme/themeFontStyle';
 import { deepMerge } from '../utils/mergeStyles';
 import type { BadgeProps, BadgeVariant } from './Badge.types';
 import type { NeobrutalismTheme, NeobrutalismColors } from '../theme/types';
@@ -94,6 +95,7 @@ export function Badge({
   // Text styles
   const computedTextStyle: TextStyle = useMemo(
     () => ({
+      ...themeFontStyle(theme),
       fontSize: 12,
       fontWeight: '600',
       color: textColor,

@@ -3,6 +3,7 @@ import type { JSX } from 'react';
 import { Pressable, Text } from 'react-native';
 import type { TextStyle } from 'react-native';
 import { useNeobrutalismTheme } from '../theme/useNeobrutalismTheme';
+import { themeFontStyle } from '../theme/themeFontStyle';
 import { deepMerge } from '../utils/mergeStyles';
 import { useBreadcrumbContext } from './BreadcrumbContext';
 import type { BreadcrumbLinkProps } from './Breadcrumb.types';
@@ -38,6 +39,7 @@ export function BreadcrumbLink({
   // Text styles
   const computedTextStyle: TextStyle = useMemo(
     () => ({
+      ...themeFontStyle(theme),
       fontSize: 14,
       fontWeight: '500',
       color: theme.colors.foreground,

@@ -3,6 +3,7 @@ import type { JSX } from 'react';
 import { Pressable, Text, View, StyleSheet } from 'react-native';
 import type { ViewStyle, TextStyle } from 'react-native';
 import { useNeobrutalismTheme } from '../theme/useNeobrutalismTheme';
+import { themeFontStyle } from '../theme/themeFontStyle';
 import { deepMerge } from '../utils/mergeStyles';
 import type { FileInputProps } from './FileInput.types';
 import type { NeobrutalismTheme } from '../theme/types';
@@ -95,6 +96,7 @@ export function FileInput({
   // Button text styles
   const buttonTextStyle: TextStyle = useMemo(
     () => ({
+      ...themeFontStyle(theme),
       fontSize: 14,
       fontWeight: '600',
       color: theme.colors.secondaryForeground,
@@ -105,6 +107,7 @@ export function FileInput({
   // Value/placeholder text styles
   const valueTextStyle: TextStyle = useMemo(
     () => ({
+      ...themeFontStyle(theme),
       flex: 1,
       paddingHorizontal: theme.spacing.md,
       fontSize: 14,

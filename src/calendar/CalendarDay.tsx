@@ -8,7 +8,7 @@ import {
   type TextStyle,
 } from 'react-native';
 import { useCalendarContext } from './CalendarContext';
-import { useNeobrutalismTheme } from '../theme';
+import { useNeobrutalismTheme, themeFontStyle } from '../theme';
 import { deepMerge } from '../utils';
 import type { NeobrutalismTheme } from '../theme/types';
 import type { CalendarDayProps, CalendarTone } from './Calendar.types';
@@ -119,6 +119,7 @@ export function CalendarDay({
 
   const dayTextStyle: TextStyle = useMemo(() => {
     const baseStyle: TextStyle = {
+      ...themeFontStyle(theme),
       fontSize: 14,
       fontWeight: '500',
       color: theme.colors.foreground,
