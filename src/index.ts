@@ -190,6 +190,15 @@ export type {
   UseCheckboxAnimationReturn,
 } from './checkbox';
 
+// Switch exports
+export { Switch, useSwitchAnimation } from './switch';
+export type {
+  SwitchProps,
+  SwitchSize,
+  UseSwitchAnimationOptions,
+  UseSwitchAnimationReturn,
+} from './switch';
+
 // Collapsible exports
 export {
   Collapsible,
