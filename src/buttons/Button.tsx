@@ -98,23 +98,55 @@ export function Button({
   const backgroundColor = theme.colors[variantColorMap[variant]];
   const textColor = theme.colors[variantForegroundMap[variant]];
 
+  const disabledFill =
+    theme.colors.disabled ?? theme.colors.secondary;
+  const disabledLabel =
+    theme.colors.disabledForeground ?? theme.colors.secondaryForeground;
+
+  /** Disabled: solid gray fill (no opacity — avoids shadow showing through the face). */
+  const resolvedBackgroundColor = useMemo(() => {
+    if (!disabled) {
+      return variant === 'outlined' ? 'transparent' : backgroundColor;
+    }
+    return variant === 'outlined' ? 'transparent' : disabledFill;
+  }, [disabled, variant, backgroundColor, disabledFill]);
+
+  const resolvedBorderColor = useMemo(() => {
+    if (disabled && variant === 'outlined') {
+      return disabledFill;
+    }
+    return theme.border.color;
+  }, [disabled, variant, theme.border.color, disabledFill]);
+
+  const resolvedTextColor = useMemo(() => {
+    if (disabled) {
+      return disabledLabel;
+    }
+    return textColor;
+  }, [disabled, textColor, disabledLabel]);
+
   // Container styles
   const containerStyle: ViewStyle = useMemo(
     () => ({
       paddingHorizontal: buttonSize.paddingHorizontal,
       paddingVertical: buttonSize.paddingVertical,
       minHeight: buttonSize.minHeight,
-      backgroundColor: variant === 'outlined' ? 'transparent' : backgroundColor,
+      backgroundColor: resolvedBackgroundColor,
       borderWidth: theme.border.width,
-      borderColor: theme.border.color,
+      borderColor: resolvedBorderColor,
       borderRadius: theme.border.radius,
       flexDirection: 'row',
       alignItems: 'center',
       justifyContent: 'center',
       gap: 8,
-      opacity: disabled ? 0.5 : 1,
     }),
-    [buttonSize, backgroundColor, theme.border, variant, disabled]
+    [
+      buttonSize,
+      resolvedBackgroundColor,
+      resolvedBorderColor,
+      theme.border.width,
+      theme.border.radius,
+    ]
   );
 
   // Shadow styles (positioned behind button)
@@ -137,17 +169,16 @@ export function Button({
       ...themeFontStyle(theme),
       fontSize: buttonSize.fontSize,
       fontWeight: '600',
-      color: textColor,
+      color: resolvedTextColor,
     }),
-    [buttonSize.fontSize, textColor]
+    [buttonSize.fontSize, resolvedTextColor, theme]
   );
 
-  // Determine if shadow should be shown
   const showShadow = shadowStyle !== null && variant !== 'outlined';
 
   return (
     <View style={[styles.wrapper, fullWidth && styles.fullWidth]}>
-      {/* Shadow layer */}
+      {/* Shadow layer (same when enabled or disabled — solid disabled face, no opacity trick). */}
       {showShadow && (
         <Animated.View
           style={[computedShadowStyle, shadowStyle, { opacity: shadowOpacity }]}

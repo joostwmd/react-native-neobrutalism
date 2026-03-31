@@ -13,6 +13,10 @@ export const defaultTheme: NeobrutalismTheme = {
     secondary: '#E0E0E0',
     secondaryForeground: '#000000',
 
+    // Disabled Button — darker than `secondary` for clearer muted state
+    disabled: '#AEAEB2',
+    disabledForeground: '#000000',
+
     // Warning - Bright yellow/amber
     warning: '#FFDC58',
     warningForeground: '#000000',

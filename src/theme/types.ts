@@ -33,6 +33,14 @@ export interface NeobrutalismColors {
   foreground: string;
   /** Border color */
   border: string;
+
+  /**
+   * Solid fill for disabled `Button` (defaults to `secondary` in the component if omitted).
+   * Use when `secondary` is repurposed (e.g. white face) so disabled stays visibly muted.
+   */
+  disabled?: string;
+  /** Label color on disabled fill (defaults to `secondaryForeground` if omitted). */
+  disabledForeground?: string;
 }
 
 /**
