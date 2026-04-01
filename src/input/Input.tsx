@@ -88,6 +88,8 @@ export function Input({
       borderColor,
       borderRadius: theme.border.radius,
       opacity: editable ? 1 : 0.5,
+      // Ensure the field keeps height when the parent uses column flex (flex:1 on TextInput collapses).
+      minHeight: 48,
     }),
     [theme.colors.background, theme.border, borderColor, editable]
   );
@@ -96,7 +98,6 @@ export function Input({
   const computedInputStyle: TextStyle = useMemo(
     () => ({
       ...themeFontStyle(theme),
-      flex: 1,
       paddingHorizontal: theme.spacing.md,
       paddingVertical: theme.spacing.sm,
       fontSize: 16,
